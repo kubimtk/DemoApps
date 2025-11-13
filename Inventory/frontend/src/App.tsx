@@ -74,6 +74,9 @@ function App() {
         const updatedProduct = await response.json();
         setScannedProduct(updatedProduct);
         loadProducts(); // Refresh overview
+      } else if (response.status === 400) {
+        const errorData = await response.json();
+        alert(errorData.error || 'Lagerbestand kann nicht negativ werden');
       } else {
         alert('Fehler beim Aktualisieren des Bestands');
       }
@@ -111,11 +114,18 @@ function App() {
             {scannedProduct.warning && (
               <p className="warning">{scannedProduct.warning}</p>
             )}
+            {scannedProduct.stock < 3 && (
+              <p className="error-message">⚠️ Entnahme nicht möglich – zu wenig auf Lager</p>
+            )}
             <div className="action-buttons">
               <button className="add-btn" onClick={() => adjustStock(scannedProduct.barcode, 5)}>
                 Add 5
               </button>
-              <button className="remove-btn" onClick={() => adjustStock(scannedProduct.barcode, -3)}>
+              <button 
+                className="remove-btn" 
+                onClick={() => adjustStock(scannedProduct.barcode, -3)}
+                disabled={scannedProduct.stock < 3}
+              >
                 Remove 3
               </button>
             </div>

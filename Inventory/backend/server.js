@@ -165,6 +165,26 @@ app.post('/api/adjust', (req, res) => {
     return res.status(400).json({ error: 'Barcode and quantity required' });
   }
 
+  // Get current stock BEFORE updating
+  const currentResult = db.exec('SELECT stock FROM products WHERE barcode = ?', [barcode]);
+  const currentProducts = sqlResultToObject(currentResult);
+  
+  if (!currentProducts.length) {
+    return res.status(404).json({ error: 'Produkt nicht gefunden' });
+  }
+
+  const currentStock = currentProducts[0].stock;
+  const newStock = currentStock + quantity;
+
+  // CRITICAL VALIDATION: Stock cannot go below zero
+  if (newStock < 0) {
+    return res.status(400).json({ 
+      error: 'Lagerbestand kann nicht negativ werden',
+      currentStock: currentStock,
+      requestedQuantity: quantity
+    });
+  }
+
   const lastChanged = new Date().toISOString();
 
   // Update stock
