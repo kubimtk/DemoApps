@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+
+// Debug: Log API URL beim Start
+console.log('🔧 API_URL:', API_URL);
+console.log('🔧 ENV VITE_API_URL:', import.meta.env.VITE_API_URL);
 
 interface Product {
   barcode: string;
