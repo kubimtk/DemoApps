@@ -19,31 +19,72 @@ const isMockMode = typeof window !== 'undefined' && window.location.hostname.inc
 
 console.log('🎭 Mock Mode:', isMockMode ? 'ACTIVE (Vercel)' : 'DISABLED (using real API)');
 
-// In-Memory Mock Store für Vercel
-const mockStore = {
-  products: [
-    {
-      barcode: '12345',
-      name: 'Schrauben M3',
-      stock: 10,
-      warehouse: 'Werkstatt',
-      minStock: 20,
-      lastChanged: new Date().toISOString(),
-      isLowStock: true,
-      warning: 'Mindestbestand unterschritten'
-    },
-    {
-      barcode: '99999',
-      name: 'Muttern M5',
-      stock: 15,
-      warehouse: 'Werkstatt',
-      minStock: 20,
-      lastChanged: new Date().toISOString(),
-      isLowStock: true,
-      warning: 'Mindestbestand unterschritten'
+// Initial Mock-Daten (BDD-konform)
+const INITIAL_MOCK_DATA = [
+  {
+    barcode: '12345',
+    name: 'Schrauben M3',
+    stock: 10,
+    warehouse: 'Werkstatt',
+    minStock: 20,
+    lastChanged: new Date().toISOString(),
+    isLowStock: true,
+    warning: 'Mindestbestand unterschritten'
+  },
+  {
+    barcode: '99999',
+    name: 'Muttern M5',
+    stock: 15,
+    warehouse: 'Werkstatt',
+    minStock: 20,
+    lastChanged: new Date().toISOString(),
+    isLowStock: true,
+    warning: 'Mindestbestand unterschritten'
+  }
+];
+
+// Mock Store mit localStorage-Persistierung
+const STORAGE_KEY = 'inventory-mock-store';
+
+function initMockStore() {
+  if (!isMockMode) return { products: [] };
+  
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log('🎭 Mock Store: Loaded from localStorage', parsed.products.length, 'products');
+      return parsed;
     }
-  ]
-};
+  } catch (error) {
+    console.warn('🎭 Mock Store: Failed to load from localStorage', error);
+  }
+  
+  console.log('🎭 Mock Store: Initialized with default data');
+  return { products: [...INITIAL_MOCK_DATA] };
+}
+
+function saveMockStore(store: typeof mockStore) {
+  if (!isMockMode) return;
+  
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+    console.log('🎭 Mock Store: Saved to localStorage');
+  } catch (error) {
+    console.warn('🎭 Mock Store: Failed to save to localStorage', error);
+  }
+}
+
+function resetMockStore() {
+  if (!isMockMode) return;
+  
+  localStorage.removeItem(STORAGE_KEY);
+  mockStore.products = [...INITIAL_MOCK_DATA];
+  console.log('🎭 Mock Store: Reset to initial data');
+}
+
+// Mock Store initialisieren
+const mockStore = initMockStore();
 
 // Mock API Fetch - Ersetzt fetch() auf Vercel
 async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
@@ -67,7 +108,7 @@ async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
     
     let products = mockStore.products;
     if (warehouse && warehouse !== 'Alle') {
-      products = products.filter(p => p.warehouse === warehouse);
+      products = products.filter((p: any) => p.warehouse === warehouse);
     }
 
     return new Response(JSON.stringify(products), {
@@ -81,7 +122,7 @@ async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
     const body = JSON.parse(options?.body as string);
     const { barcode } = body;
 
-    const product = mockStore.products.find(p => p.barcode === barcode);
+    const product = mockStore.products.find((p: any) => p.barcode === barcode);
 
     if (product) {
       return new Response(JSON.stringify(product), {
@@ -101,7 +142,7 @@ async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
     const body = JSON.parse(options?.body as string);
     const { barcode, quantity } = body;
 
-    const product = mockStore.products.find(p => p.barcode === barcode);
+    const product = mockStore.products.find((p: any) => p.barcode === barcode);
 
     if (!product) {
       return new Response(JSON.stringify({ error: 'Produkt nicht gefunden' }), {
@@ -130,6 +171,9 @@ async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
     product.isLowStock = product.stock < product.minStock;
     // @ts-ignore - Mock setzt warning dynamisch
     product.warning = product.isLowStock ? 'Mindestbestand unterschritten' : undefined;
+
+    // Persistiere Änderungen in localStorage
+    saveMockStore(mockStore);
 
     console.log('🎭 Mock: Stock adjusted', { barcode, oldStock: product.stock - quantity, newStock, quantity });
 
@@ -230,11 +274,33 @@ function App() {
     }
   };
 
+  const handleResetMockData = () => {
+    if (isMockMode && confirm('Mock-Daten auf Initial-Werte zurücksetzen?')) {
+      resetMockStore();
+      loadProducts();
+      setScannedProduct(null);
+      alert('✅ Mock-Daten wurden zurückgesetzt!');
+    }
+  };
+
   const warehouses = ['Alle', 'Werkstatt', 'Lager'];
 
   return (
     <div className="app">
       <h1>Lagerbestand Management</h1>
+      {isMockMode && (
+        <div style={{ padding: '10px', background: '#fff3cd', border: '1px solid #ffc107', borderRadius: '4px', marginBottom: '20px' }}>
+          <p style={{ margin: 0, fontSize: '14px' }}>
+            🎭 <strong>Mock-Modus aktiv</strong> - Daten werden in localStorage gespeichert
+            <button 
+              onClick={handleResetMockData}
+              style={{ marginLeft: '10px', padding: '4px 8px', fontSize: '12px', cursor: 'pointer' }}
+            >
+              🔄 Daten zurücksetzen
+            </button>
+          </p>
+        </div>
+      )}
 
       <div className="scan-section">
         <h2>Barcode scannen</h2>
