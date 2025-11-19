@@ -19,6 +19,12 @@ https://appointment-manager-[your-id].vercel.app
 ## BDD Specification
 [appointments.feature](./appointments.feature)
 
+## Demo-Modus
+
+** Email-Mock: ** Alle "gesendeten" Emails werden im **Email-Log-Panel** unten in der App angezeigt, statt tatsächlich versendet zu werden. Das beweist, dass die Logik komplett ist – die Integration echter Mail-Services (EmailJS/SMTP) ist ein optionaler Follow-up-Sprint (1.500€).
+
+** Persistenz: ** Alle Termine werden im Browser (localStorage) gespeichert – ideal für schnelle Demos ohne Backend-Setup.
+
 ## Tech Stack
 - React 18
 - TypeScript
