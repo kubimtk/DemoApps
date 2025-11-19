@@ -23,6 +23,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [emailLog, setEmailLog] = useState<string[]>([]);
 
   // Load appointments from localStorage on mount
   useEffect(() => {
@@ -86,6 +87,7 @@ function App() {
 
       setAppointments([...appointments, newAppointment]);
       console.log('📧 Bestätigung an:', email);
+      setEmailLog(prev => [...prev, `📧 Bestätigung an: ${email} - ${new Date().toLocaleTimeString()}`]);
       showToast('Termin erfolgreich erstellt!', 'success');
 
       // Reset form
@@ -108,6 +110,7 @@ function App() {
             : a
         ));
         console.log('📧 Update an:', appointment.email);
+        setEmailLog(prev => [...prev, `📧 Update an: ${appointment.email} - ${new Date().toLocaleTimeString()}`]);
         showToast('Termin erfolgreich verschoben!', 'success');
       });
     }
@@ -121,6 +124,7 @@ function App() {
       await simulateApiCall(() => {
         setAppointments(appointments.filter(a => a.id !== id));
         console.log('📧 Storno an:', appointment.email);
+        setEmailLog(prev => [...prev, `📧 Storno an: ${appointment.email} - ${new Date().toLocaleTimeString()}`]);
         showToast('Termin erfolgreich storniert!', 'success');
       });
     }
@@ -344,7 +348,7 @@ function App() {
                 <p className="text-gray-500">
                   {searchQuery 
                     ? 'Versuchen Sie einen anderen Suchbegriff' 
-                    : 'Erstellen Sie Ihren ersten Termin im Formular links'}
+                    : 'Erstellen Sie Ihren ersten Termin mit dem Formular'}
                 </p>
               </div>
             ) : (
@@ -418,6 +422,38 @@ function App() {
             )}
           </div>
         </div>
+
+        {/* Email Log Panel */}
+        {emailLog.length > 0 && (
+          <div className="mt-8">
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold flex items-center space-x-2">
+                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span>Email-Log</span>
+                </h3>
+                <button
+                  onClick={() => setEmailLog([])}
+                  className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
+                >
+                  Log löschen
+                </button>
+              </div>
+              <div className="max-h-32 overflow-y-auto space-y-2 bg-gray-900/50 rounded-lg p-4">
+                {emailLog.map((log, index) => (
+                  <div
+                    key={index}
+                    className="text-sm text-gray-300 font-mono py-1 border-b border-gray-700/50 last:border-b-0"
+                  >
+                    {log}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Toast Notifications */}
