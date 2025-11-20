@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ-Tool</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      color: #7f8c8d;
+      margin-bottom: 30px;
+    }
+    
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .search-filter {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    
+    input[type="text"], select {
+      padding: 10px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 5px;
+      font-size: 14px;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    button, .btn {
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    
+    button:hover, .btn:hover {
+      background: #2980b9;
+    }
+    
+    .btn-success {
+      background: #27ae60;
+    }
+    
+    .btn-success:hover {
+      background: #229954;
+    }
+    
+    .user-info {
+      background: #ecf0f1;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    
+    .section-title {
+      font-size: 20px;
+      color: #2c3e50;
+      margin: 30px 0 15px 0;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+    }
+    
+    /* Accordion Styles für Mobile und Desktop */
+    .faq-list {
+      list-style: none;
+    }
+    
+    .faq-item {
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .faq-item:hover {
+      border-color: #3498db;
+    }
+    
+    .faq-header {
+      padding: 20px;
+      cursor: pointer;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    
+    .faq-header:hover {
+      background: #e9ecef;
+    }
+    
+    .faq-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      flex: 1;
+    }
+    
+    .faq-meta {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    
+    .kategorie-badge {
+      background: #3498db;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+    
+    .hilfreich-count {
+      color: #27ae60;
+      font-weight: 600;
+    }
+    
+    .faq-toggle {
+      font-size: 24px;
+      color: #3498db;
+      transition: transform 0.3s;
+    }
+    
+    .faq-item.active .faq-toggle {
+      transform: rotate(180deg);
+    }
+    
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .faq-item.active .faq-content {
+      max-height: 1000px;
+      transition: max-height 0.5s ease-in;
+    }
+    
+    .faq-body {
+      padding: 20px;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .faq-text {
+      margin-bottom: 15px;
+      line-height: 1.8;
+    }
+    
+    .faq-tags {
+      margin-bottom: 15px;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    
+    .faq-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn-hilfreich {
+      background: #27ae60;
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+    
+    .btn-hilfreich:hover {
+      background: #229954;
+    }
+    
+    .no-faqs {
+      text-align: center;
+      padding: 60px 20px;
+      color: #7f8c8d;
+    }
+    
+    .no-faqs-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+    
+    /* Mobile Optimierung */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        padding: 15px;
+      }
+      
+      .header-actions {
+        flex-direction: column;
+      }
+      
+      .search-filter {
+        width: 100%;
+      }
+      
+      input[type="text"], select {
+        width: 100%;
+        min-width: auto;
+      }
+      
+      .faq-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .faq-header {
+        padding: 15px;
+      }
+      
+      .faq-title {
+        font-size: 16px;
+      }
+    }
+    
+    @media (max-width: 375px) {
+      .faq-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .faq-toggle {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FAQ-Tool</h1>
+    <p class="subtitle">Finden Sie schnell Antworten auf Ihre Fragen</p>
+    
+    <div class="header-actions">
+      <div class="search-filter">
+        <input type="text" id="searchInput" placeholder="Nach Stichwort suchen...">
+        <select id="kategorieFilter">
+          <option value="">Alle Kategorien</option>
+          <% kategorien.forEach(kat => { %>
+            <option value="<%= kat %>"><%= kat %></option>
+          <% }); %>
+        </select>
+        <button onclick="filterFaqs()">Suchen</button>
+      </div>
+      
+      <% if (session && session.rolle === 'admin') { %>
+        <a href="/admin" class="btn btn-success">Admin Dashboard</a>
+      <% } else if (!session || !session.username) { %>
+        <button onclick="login('admin')">Als Admin einloggen</button>
+      <% } %>
+    </div>
+    
+    <% if (session && session.username) { %>
+      <div class="user-info">
+        Eingeloggt als: <strong><%= session.username %></strong> 
+        (<%= session.rolle %>) 
+        | <a href="/logout">Logout</a>
+      </div>
+    <% } %>
+    
+    <h2 class="section-title">
+      <span id="sectionTitle">Beliebte FAQs</span>
+    </h2>
+    
+    <ul class="faq-list" id="faqList">
+      <% if (faqs.length === 0) { %>
+        <div class="no-faqs">
+          <div class="no-faqs-icon">❓</div>
+          <p>Noch keine FAQs vorhanden.</p>
+        </div>
+      <% } else { %>
+        <% faqs.forEach((faq, index) => { %>
+          <li class="faq-item" data-kategorie="<%= faq.kategorie %>" data-id="<%= faq.id %>">
+            <div class="faq-header" onclick="toggleFaq(this)">
+              <div style="flex: 1;">
+                <div class="faq-title"><%= faq.titel %></div>
+                <div class="faq-meta">
+                  <span class="kategorie-badge"><%= faq.kategorie %></span>
+                  <span class="hilfreich-count">
+                    ❤️ <%= faq.hilfreich_punkte %> hilfreich
+                  </span>
+                </div>
+              </div>
+              <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-content">
+              <div class="faq-body">
+                <div class="faq-text"><%= faq.inhalt %></div>
+                <% if (faq.tags) { %>
+                  <div class="faq-tags">
+                    <strong>Tags:</strong> <%= faq.tags %>
+                  </div>
+                <% } %>
+                <div class="faq-actions">
+                  <button class="btn btn-hilfreich" onclick="markHilfreich(<%= faq.id %>)">
+                    Hilfreich? 👍
+                  </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% }); %>
+      <% } %>
+    </ul>
+  </div>
+  
+  <script>
+    // Accordion Toggle Funktion
+    function toggleFaq(header) {
+      const item = header.closest('.faq-item');
+      const wasActive = item.classList.contains('active');
+      
+      // Schließe alle anderen FAQs (Optional: für "nur eine offen" Verhalten)
+      // document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      
+      // Toggle aktuelle FAQ
+      if (wasActive) {
+        item.classList.remove('active');
+      } else {
+        item.classList.add('active');
+      }
+    }
+    
+    // Suche und Filter Funktion
+    function filterFaqs() {
+      const searchTerm = document.getElementById('searchInput').value;
+      const kategorie = document.getElementById('kategorieFilter').value;
+      
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('suche', searchTerm);
+      if (kategorie) params.append('kategorie', kategorie);
+      
+      fetch('/faqs?' + params.toString())
+        .then(res => res.json())
+        .then(faqs => {
+          updateFaqList(faqs);
+          
+          // Update Section Title
+          let title = 'Beliebte FAQs';
+          if (searchTerm) title = `Suchergebnisse für "${searchTerm}"`;
+          else if (kategorie) title = `FAQs in Kategorie "${kategorie}"`;
+          document.getElementById('sectionTitle').textContent = title;
+        })
+        .catch(err => {
+          console.error('Fehler beim Laden der FAQs:', err);
+        });
+    }
+    
+    // Update FAQ List
+    function updateFaqList(faqs) {
+      const list = document.getElementById('faqList');
+      
+      if (faqs.length === 0) {
+        list.innerHTML = `
+          <div class="no-faqs">
+            <div class="no-faqs-icon">❓</div>
+            <p>Keine FAQs gefunden.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      list.innerHTML = faqs.map(faq => `
+        <li class="faq-item" data-kategorie="${faq.kategorie}" data-id="${faq.id}">
+          <div class="faq-header" onclick="toggleFaq(this)">
+            <div style="flex: 1;">
+              <div class="faq-title">${faq.titel}</div>
+              <div class="faq-meta">
+                <span class="kategorie-badge">${faq.kategorie}</span>
+                <span class="hilfreich-count">
+                  ❤️ ${faq.hilfreich_punkte} hilfreich
+                </span>
+              </div>
+            </div>
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-content">
+            <div class="faq-body">
+              <div class="faq-text">${faq.inhalt}</div>
+              ${faq.tags ? `<div class="faq-tags"><strong>Tags:</strong> ${faq.tags}</div>` : ''}
+              <div class="faq-actions">
+                <button class="btn btn-hilfreich" onclick="markHilfreich(${faq.id})">
+                  Hilfreich? 👍
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      `).join('');
+    }
+    
+    // Markiere FAQ als hilfreich
+    function markHilfreich(id) {
+      fetch(`/faq/${id}/hilfreich`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        location.reload(); // Seite neu laden um aktualisierte Punkte zu zeigen
+      })
+      .catch(err => {
+        console.error('Fehler:', err);
+        alert('Fehler beim Markieren als hilfreich');
+      });
+    }
+    
+    // Login Funktion
+    function login(username) {
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        }
+      })
+      .catch(err => {
+        console.error('Login Fehler:', err);
+      });
+    }
+    
+    // Enter-Taste für Suche
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        filterFaqs();
+      }
+    });
+  </script>
+</body>
+</html>
+

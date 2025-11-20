@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - FAQ-Tool</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      gap: 15px;
+    }
+    
+    button, .btn {
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    
+    button:hover, .btn:hover {
+      background: #2980b9;
+    }
+    
+    .btn-success {
+      background: #27ae60;
+    }
+    
+    .btn-success:hover {
+      background: #229954;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+    }
+    
+    .btn-danger:hover {
+      background: #c0392b;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 5px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .faq-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    .faq-table th,
+    .faq-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .faq-table th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .faq-table tr:hover {
+      background: #f8f9fa;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    
+    .kategorie-badge {
+      background: #3498db;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛠 Admin Dashboard</h1>
+    
+    <div class="header-actions">
+      <div>
+        <button class="btn-success" onclick="openCreateModal()">+ Neue FAQ erstellen</button>
+        <a href="/admin/export/csv" class="btn">CSV Export</a>
+      </div>
+      <a href="/" class="btn">← Zurück zur Hauptseite</a>
+    </div>
+    
+    <table class="faq-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Titel</th>
+          <th>Kategorie</th>
+          <th>Inhalt</th>
+          <th>Tags</th>
+          <th>Hilfreich</th>
+          <th>Aktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (faqs.length === 0) { %>
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 40px; color: #7f8c8d;">
+              Noch keine FAQs vorhanden. Erstellen Sie die erste FAQ!
+            </td>
+          </tr>
+        <% } else { %>
+          <% faqs.forEach(faq => { %>
+            <tr>
+              <td><%= faq.id %></td>
+              <td><strong><%= faq.titel %></strong></td>
+              <td><span class="kategorie-badge"><%= faq.kategorie %></span></td>
+              <td><%= faq.inhalt.substring(0, 50) %>...</td>
+              <td><%= faq.tags || '-' %></td>
+              <td>❤️ <%= faq.hilfreich_punkte %></td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn-small" onclick="openEditModal(<%= faq.id %>)">
+                    ✏️ Bearbeiten
+                  </button>
+                  <button class="btn btn-danger btn-small" onclick="deleteFaq(<%= faq.id %>)">
+                    🗑 Löschen
+                  </button>
+                </div>
+              </td>
+            </tr>
+          <% }); %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Create/Edit Modal -->
+  <div id="faqModal" class="modal">
+    <div class="modal-content">
+      <h2 id="modalTitle">Neue FAQ erstellen</h2>
+      <form id="faqForm">
+        <input type="hidden" id="faqId">
+        
+        <div class="form-group">
+          <label for="titel">Titel *</label>
+          <input type="text" id="titel" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="kategorie">Kategorie *</label>
+          <input type="text" id="kategorie" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="inhalt">Inhalt *</label>
+          <textarea id="inhalt" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="tags">Tags (Komma-separiert)</label>
+          <input type="text" id="tags" placeholder="z.B. Paket, Lieferung">
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="btn-success">Speichern</button>
+          <button type="button" class="btn" onclick="closeModal()">Abbrechen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    const allFaqs = <%- JSON.stringify(faqs) %>;
+    
+    function openCreateModal() {
+      document.getElementById('modalTitle').textContent = 'Neue FAQ erstellen';
+      document.getElementById('faqForm').reset();
+      document.getElementById('faqId').value = '';
+      document.getElementById('faqModal').classList.add('active');
+    }
+    
+    function openEditModal(id) {
+      const faq = allFaqs.find(f => f.id === id);
+      if (!faq) return;
+      
+      document.getElementById('modalTitle').textContent = 'FAQ bearbeiten';
+      document.getElementById('faqId').value = faq.id;
+      document.getElementById('titel').value = faq.titel;
+      document.getElementById('kategorie').value = faq.kategorie;
+      document.getElementById('inhalt').value = faq.inhalt;
+      document.getElementById('tags').value = faq.tags || '';
+      document.getElementById('faqModal').classList.add('active');
+    }
+    
+    function closeModal() {
+      document.getElementById('faqModal').classList.remove('active');
+    }
+    
+    document.getElementById('faqForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const id = document.getElementById('faqId').value;
+      const data = {
+        titel: document.getElementById('titel').value,
+        kategorie: document.getElementById('kategorie').value,
+        inhalt: document.getElementById('inhalt').value,
+        tags: document.getElementById('tags').value
+      };
+      
+      try {
+        let response;
+        if (id) {
+          // Update
+          response = await fetch(`/admin/faq/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        } else {
+          // Create
+          response = await fetch('/admin/faq', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        }
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert(result.message);
+          location.reload();
+        } else {
+          alert('Fehler: ' + result.error);
+        }
+      } catch (err) {
+        console.error('Fehler:', err);
+        alert('Ein Fehler ist aufgetreten');
+      }
+    });
+    
+    async function deleteFaq(id) {
+      if (!confirm('FAQ wirklich löschen?')) return;
+      
+      try {
+        const response = await fetch(`/admin/faq/${id}`, {
+          method: 'DELETE'
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert(result.message);
+          location.reload();
+        } else {
+          alert('Fehler: ' + result.error);
+        }
+      } catch (err) {
+        console.error('Fehler:', err);
+        alert('Ein Fehler ist aufgetreten');
+      }
+    }
+    
+    // Close modal on background click
+    document.getElementById('faqModal').addEventListener('click', (e) => {
+      if (e.target.id === 'faqModal') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
+
