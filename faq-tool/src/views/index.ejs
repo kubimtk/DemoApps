@@ -122,7 +122,7 @@
     
     .faq-header {
       padding: 20px;
-      cursor: pointer;
+      cursor: default; /* Desktop: Kein Klick-Cursor */
       background: #f8f9fa;
       display: flex;
       justify-content: space-between;
@@ -131,7 +131,7 @@
     }
     
     .faq-header:hover {
-      background: #e9ecef;
+      background: #f8f9fa; /* Desktop: Kein Hover-Effekt */
     }
     
     .faq-title {
@@ -174,14 +174,12 @@
     }
     
     .faq-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
+      max-height: none; /* Desktop: Immer sichtbar */
+      overflow: visible;
     }
     
     .faq-item.active .faq-content {
-      max-height: 1000px;
-      transition: max-height 0.5s ease-in;
+      max-height: none;
     }
     
     .faq-body {
@@ -270,11 +268,28 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+        cursor: pointer; /* Mobile: Klickbar */
+      }
+      
+      .faq-header:hover {
+        background: #e9ecef; /* Mobile: Hover-Effekt */
       }
       
       .faq-toggle {
         display: block; /* Zeige Pfeil nur auf Mobile */
         align-self: flex-end;
+      }
+      
+      /* Mobile: Accordion-Funktion aktivieren */
+      .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+      
+      .faq-item.active .faq-content {
+        max-height: 1000px;
+        transition: max-height 0.5s ease-in;
       }
     }
   </style>
@@ -360,6 +375,11 @@
   <script>
     // Accordion Toggle Funktion
     function toggleFaq(header) {
+      // Nur auf Mobile (≤375px) Accordion aktivieren
+      if (window.innerWidth > 375) {
+        return; // Desktop: Tue nichts
+      }
+      
       const item = header.closest('.faq-item');
       const wasActive = item.classList.contains('active');
       
