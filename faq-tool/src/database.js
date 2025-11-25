@@ -19,8 +19,15 @@ let db;
  */
 function initDatabase() {
   return new Promise((resolve, reject) => {
+    // Wenn bereits initialisiert, gib existierende DB zurück
+    if (db) {
+      resolve(db);
+      return;
+    }
+    
     db = new sqlite3.Database(dbPath, (err) => {
       if (err) {
+        console.error('Fehler beim Öffnen der Datenbank:', err);
         reject(err);
         return;
       }
@@ -79,6 +86,9 @@ function initDatabase() {
  * @returns {sqlite3.Database}
  */
 function getDatabase() {
+  if (!db) {
+    throw new Error('Datenbank wurde noch nicht initialisiert. Rufe zuerst initDatabase() auf.');
+  }
   return db;
 }
 
@@ -91,8 +101,10 @@ function closeDatabase() {
     if (db) {
       db.close((err) => {
         if (err) {
+          console.error('Fehler beim Schließen der Datenbank:', err);
           reject(err);
         } else {
+          db = null; // Setze db auf null nach dem Schließen
           resolve();
         }
       });
@@ -108,15 +120,35 @@ function closeDatabase() {
  */
 function clearDatabase() {
   return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error('Datenbank ist nicht initialisiert'));
+      return;
+    }
+    
+    // Lösche FAQs
     db.run('DELETE FROM faqs', (err) => {
       if (err) {
         reject(err);
-      } else {
-        // Reset Auto-Increment
-        db.run('DELETE FROM sqlite_sequence WHERE name="faqs"', () => {
-          resolve();
-        });
+        return;
       }
+      
+      // Lösche Users (außer Admin)
+      db.run('DELETE FROM users WHERE username != "admin"', (err) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        
+        // Reset Auto-Increment für beide Tabellen
+        db.run('DELETE FROM sqlite_sequence WHERE name IN ("faqs", "users")', (err) => {
+          if (err) {
+            // Ignoriere Fehler wenn sqlite_sequence nicht existiert
+            resolve();
+          } else {
+            resolve();
+          }
+        });
+      });
     });
   });
 }
