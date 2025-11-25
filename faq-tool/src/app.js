@@ -400,11 +400,16 @@ async function startServer(port = 3000) {
   }
 }
 
-// Für Tests exportieren
-module.exports = { app, startServer };
+// Initialisiere Datenbank für Vercel/Serverless
+initDatabase().catch(err => {
+  console.error('Datenbank-Initialisierungsfehler:', err);
+});
 
 // Starte Server nur wenn direkt ausgeführt
 if (require.main === module) {
   startServer();
 }
+
+// Für Tests und Vercel exportieren
+module.exports = { app, startServer };
 
