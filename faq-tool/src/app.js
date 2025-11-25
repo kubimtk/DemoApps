@@ -27,6 +27,16 @@ app.set('views', path.join(__dirname, 'views'));
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Health Check Endpoint für Debugging
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK',
+    environment: process.env.NODE_ENV || 'development',
+    vercel: !!process.env.VERCEL,
+    timestamp: new Date().toISOString()
+  });
+});
+
 /**
  * Middleware: Prüft ob User als Admin eingeloggt ist
  */
@@ -384,6 +394,16 @@ app.get('/admin', requireAdmin, (req, res) => {
   });
 });
 
+// Error Handler Middleware (muss am Ende sein)
+app.use((err, req, res, next) => {
+  console.error('Unhandled Error:', err);
+  res.status(500).json({ 
+    error: 'Internal Server Error',
+    message: process.env.NODE_ENV === 'production' ? 'Ein Fehler ist aufgetreten' : err.message,
+    stack: process.env.NODE_ENV === 'production' ? undefined : err.stack
+  });
+});
+
 // Initialisiere Datenbank beim Start
 let server;
 
@@ -399,11 +419,6 @@ async function startServer(port = 3000) {
     throw err;
   }
 }
-
-// Initialisiere Datenbank für Vercel/Serverless
-initDatabase().catch(err => {
-  console.error('Datenbank-Initialisierungsfehler:', err);
-});
 
 // Starte Server nur wenn direkt ausgeführt
 if (require.main === module) {

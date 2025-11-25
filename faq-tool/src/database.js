@@ -7,8 +7,8 @@ const path = require('path');
  */
 
 // Bestimme Datenbankpfad basierend auf Umgebung
-const dbPath = process.env.NODE_ENV === 'test' 
-  ? ':memory:'  // In-Memory DB für Tests
+const dbPath = process.env.NODE_ENV === 'test' || process.env.VERCEL
+  ? ':memory:'  // In-Memory DB für Tests und Vercel
   : path.join(__dirname, '..', 'faq-tool.db');
 
 let db;
