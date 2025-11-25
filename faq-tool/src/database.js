@@ -17,40 +17,36 @@ let db;
  * Initialisiert die Datenbank und erstellt Tabellen
  * @returns {Promise<sqlite3.Database>}
  */
-function initDatabase() {
+async function initDatabase() {
+  // Wenn bereits initialisiert, gib existierende DB zurück
+  if (db) {
+    return db;
+  }
+  
   return new Promise((resolve, reject) => {
-    // Wenn bereits initialisiert, gib existierende DB zurück
-    if (db) {
-      resolve(db);
-      return;
-    }
-    
     db = new sqlite3.Database(dbPath, (err) => {
       if (err) {
         console.error('Fehler beim Öffnen der Datenbank:', err);
-        reject(err);
-        return;
+        return reject(err);
       }
       
-      // Erstelle FAQs Tabelle mit allen erforderlichen Feldern
-      db.run(`
-        CREATE TABLE IF NOT EXISTS faqs (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          titel TEXT NOT NULL,
-          kategorie TEXT NOT NULL,
-          inhalt TEXT NOT NULL,
-          tags TEXT,
-          hilfreich_punkte INTEGER DEFAULT 0,
-          erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP,
-          aktualisiert_am DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-      `, (err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+      // Erstelle beide Tabellen und Admin in Serie
+      db.serialize(() => {
+        // FAQs Tabelle
+        db.run(`
+          CREATE TABLE IF NOT EXISTS faqs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            titel TEXT NOT NULL,
+            kategorie TEXT NOT NULL,
+            inhalt TEXT NOT NULL,
+            tags TEXT,
+            hilfreich_punkte INTEGER DEFAULT 0,
+            erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP,
+            aktualisiert_am DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
         
-        // Erstelle Benutzer Tabelle für Admin-Authentifizierung
+        // Users Tabelle
         db.run(`
           CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,23 +54,15 @@ function initDatabase() {
             rolle TEXT NOT NULL,
             erstellt_am DATETIME DEFAULT CURRENT_TIMESTAMP
           )
+        `);
+        
+        // Admin-User erstellen
+        db.run(`
+          INSERT OR IGNORE INTO users (username, rolle) 
+          VALUES ('admin', 'admin')
         `, (err) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          
-          // Füge Test-Admin hinzu (nur wenn noch nicht vorhanden)
-          db.run(`
-            INSERT OR IGNORE INTO users (username, rolle) 
-            VALUES ('admin', 'admin')
-          `, (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(db);
-            }
-          });
+          if (err) return reject(err);
+          resolve(db);
         });
       });
     });
@@ -118,36 +106,17 @@ function closeDatabase() {
  * Löscht alle Daten aus den Tabellen (nur für Tests)
  * @returns {Promise<void>}
  */
-function clearDatabase() {
-  return new Promise((resolve, reject) => {
-    if (!db) {
-      reject(new Error('Datenbank ist nicht initialisiert'));
-      return;
-    }
-    
-    // Lösche FAQs
-    db.run('DELETE FROM faqs', (err) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      
-      // Lösche Users (außer Admin)
-      db.run('DELETE FROM users WHERE username != "admin"', (err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        
-        // Reset Auto-Increment für beide Tabellen
-        db.run('DELETE FROM sqlite_sequence WHERE name IN ("faqs", "users")', (err) => {
-          if (err) {
-            // Ignoriere Fehler wenn sqlite_sequence nicht existiert
-            resolve();
-          } else {
-            resolve();
-          }
-        });
+async function clearDatabase() {
+  if (!db) {
+    throw new Error('Datenbank ist nicht initialisiert');
+  }
+  
+  return new Promise((resolve) => {
+    db.serialize(() => {
+      db.run('DELETE FROM faqs');
+      db.run('DELETE FROM users WHERE username != "admin"');
+      db.run('DELETE FROM sqlite_sequence WHERE name IN ("faqs", "users")', () => {
+        resolve();
       });
     });
   });
