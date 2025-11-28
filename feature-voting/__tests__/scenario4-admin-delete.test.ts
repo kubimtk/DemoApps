@@ -26,6 +26,10 @@ describe('Scenario 4: Admin löscht Duplikat', () => {
   });
 
   beforeEach(async () => {
+    // Clear database before each test to ensure isolation
+    await clearDatabase();
+    await initDatabase();
+    
     // And: Es gibt zwei Requests "Dark Mode"
     
     // Create older Dark Mode request
