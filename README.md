@@ -26,7 +26,7 @@ Du signierst eine BDD-Spezifikation → Ich liefere eine voll funktionsfähige, 
 
 ### 1. Appointment Manager (Auto-Email-Benachrichtigungen)
 
-**Status:** ✅ Fertig | [Live Demo](https://appointment-manager-zeta.vercel.app) | [Loom](https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43) | [GitHub](./appointment-manager/)
+**Status:** ✅ Fertig | [Live Demo](https://appointment-manager-zeta.vercel.app) | [Loom](https://www.loom.com/share/cb02808e47fc4c3fadb363d064ea7f1f) | [GitHub](./appointment-manager/)
 
 **Business Value:** Automatisiere Terminverwaltung mit sofortigen E-Mail-Benachrichtigungen für Buchungen, Verschiebungen und Stornierungen.
 
@@ -73,7 +73,7 @@ Feature: Termin-Management mit Auto-Email
 
 ### 2. Inventory Tracker (Barcode-Scanning)
 
-**Status:** ✅ Fertig | [Live Demo](https://inventory-eight-ruby.vercel.app) | [Loom](https://www.loom.com/share/cb02808e47fc4c3fadb363d064ea7f1f) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
+**Status:** ✅ Fertig | [Live Demo](https://inventory-eight-ruby.vercel.app) | [Loom](https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
 
 **Business Value:** Digitalisiere die Lagerverwaltung für kleine Unternehmen mit Barcode-Scanning und Echtzeit-Bestandsaktualisierungen.
 
