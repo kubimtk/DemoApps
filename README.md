@@ -72,10 +72,32 @@ npm run dev
 ## 📦 Weitere Demo-Apps (Coming Soon)
 
 ### 2️⃣ **Inventar-Tracker** | Barcode-Scan → Lagerbestand
-**Status:** In Planung
+**Problem gelöst:** Excel-Listen für Lagerbestände → digitale Echtzeit-Verwaltung
+
+**Status:** In Planung  
+**Live Demo:** -  
+**BDD-Spec:** -  
+**GitHub:** -
+
+**Tech Stack (geplant):**
+- React + TypeScript
+- Quagga2 (Barcode-Scanner)
+- SQLite / PostgreSQL
+
+---
 
 ### 3️⃣ **Internes FAQ-Tool** | Suche + Admin-Panel
-**Status:** In Planung
+**Problem gelöst:** Mitarbeiter finden keine Antworten → Suchbasiertes Wissens-Tool
+
+**Status:** In Planung  
+**Live Demo:** -  
+**BDD-Spec:** -  
+**GitHub:** -
+
+**Tech Stack (geplant):**
+- React + TypeScript
+- Fuse.js (Fuzzy Search)
+- Node.js + Express
 
 ---
 
