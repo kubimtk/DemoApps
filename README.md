@@ -1,70 +1,94 @@
-# Appointment Manager
+# 3-Day MVP Sprints – Demo Apps
 
-BDD-Spec-gesteuerte Terminverwaltung mit modernem Dark-Mode Design.
+**Von signierten BDD-Specs zu lauffähigen Prototypen – in 72 Stunden für 5.000€.**
 
-## Features
+Dieses Repository enthält Demo-Apps, die nach meinem 3-Day-Sprint-Prozess gebaut wurden. Keine Scope-Diskussionen, alle Tests grün, Code gehört dir vollständig.
 
+---
+
+## 💡 Was ist ein 3-Day MVP Sprint?
+
+**Problem:** Product Manager verlieren 4-6 Wochen mit MVP-Briefings, die in endlosen Revisionen versinken.
+
+**Lösung:** Du signierst die BDD-Spec, ich liefere den funktionierenden Prototyp in genau 72 Stunden.
+
+**Wie?** Cursor AI + Claude 3.5 Sonnet + 40 Jahre Erfahrung als Safety-Layer.
+
+---
+
+## 🎯 Demo-Apps
+
+### 1️⃣ **Appointment Manager** | Termin-Management mit Auto-Email
+**Problem gelöst:** Manuelles Termin-Verschieben → automatisierte Kundenbenachrichtigung
+
+**Live Demo:** [appointment-manager.vercel.app](https://appointment-manager-4va4jnqv4-wolfgang-kubisiaks-projects.vercel.app)  
+**BDD-Spec:** [appointments.feature](./appointment-manager/appointments.feature)  
+**GitHub:** [appointment-manager/](./appointment-manager/)
+
+**Features:**
 - ✅ Termine erstellen, verschieben, stornieren
-- ✅ Email-Mock mit Console-Logs
+- ✅ Email-Mock mit sichtbarem Log-Panel
 - ✅ Such/Filter-Funktion
 - ✅ Export-Funktion (JSON-Download)
-- ✅ Toast-Notifications
-- ✅ Loading-States
+- ✅ Toast-Notifications & Loading-States
 - ✅ localStorage-Persistenz
 - ✅ Responsive Design (Mobile, Tablet, Desktop)
 
-## Live Demo
-https://appointment-manager-[your-id].vercel.app
-
-## BDD Specification
-[appointments.feature](./appointments.feature)
-
-## Demo-Modus
-
-** Email-Mock: ** Alle "gesendeten" Emails werden im **Email-Log-Panel** unten in der App angezeigt, statt tatsächlich versendet zu werden. Das beweist, dass die Logik komplett ist – die Integration echter Mail-Services (EmailJS/SMTP) ist ein optionaler Follow-up-Sprint (1.500€).
-
-** Persistenz: ** Alle Termine werden im Browser (localStorage) gespeichert – ideal für schnelle Demos ohne Backend-Setup.
-
-## Tech Stack
-- React 18
-- TypeScript
-- Vite
+**Tech Stack:**
+- React 18 + TypeScript + Vite
 - Tailwind CSS
 - localStorage (Mock Backend)
 
-## Quick Start
+**Key Metrics:**
+- 3 BDD-Szenarien → alle grün
+- ~500 Zeilen Code
+- Entwicklungszeit: ~20 Stunden
+
+---
+
+## ⚙️ Der 3-Day Prozess
+
+1. **Tag 0**: BDD-Spec Review & Signierung
+2. **Tag 1-3**: Entwicklung mit AI + Safety-Layer
+3. **Tag 3**: Lieferung + Übergabe
+
+**Ergebnis:** Funktionierender Prototyp, alle Tests grün, volle Code-Rechte.
+
+---
+
+## 🚀 Quick Start
+
+Jede Demo-App hat ihre eigene README mit detaillierten Anweisungen:
 
 ```bash
-cd frontend
+# Appointment Manager
+cd appointment-manager/frontend
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+---
 
-## Project Structure
+## 📦 Weitere Demo-Apps (Coming Soon)
 
-```
-appointment-manager/
-├── appointments.feature    # BDD Specification
-├── frontend/
-│   ├── src/
-│   │   ├── App.tsx        # Main application (all-in-one)
-│   │   ├── index.css      # Tailwind directives
-│   │   └── main.tsx       # Entry point
-│   ├── index.html
-│   └── package.json
-└── README.md
-```
+### 2️⃣ **Inventar-Tracker** | Barcode-Scan → Lagerbestand
+**Status:** In Planung
 
-## Development
+### 3️⃣ **Internes FAQ-Tool** | Suche + Admin-Panel
+**Status:** In Planung
 
-This project was built as part of the 3-Day MVP Sprint Demo Apps collection.
+---
 
-**Development Time:** ~20 hours  
-**BDD Scenarios:** 3 scenarios → all passing  
-**Lines of Code:** ~450 (without tests)
+## 📞 Kontakt
+
+Interesse an einem eigenen 3-Day MVP Sprint?
+
+**Preis:** 5.000€ (72h, alle Rechte inklusive)  
+**Follow-up-Sprints:** 1.500€/Tag (z.B. Backend-Integration, Auth, Deployment)
+
+---
 
 ## License
 
-MIT – you can use, fork, and learn from this code.
+MIT – you can use, fork, learn from this code.  
+**For commercial projects, I transfer full rights after payment.**
