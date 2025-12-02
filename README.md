@@ -1,34 +1,34 @@
-# DemoApps – BDD to MVP in 72h
+# DemoApps – Von BDD zu MVP in 72h
 
-**Transforming signed BDD specifications into production-ready prototypes in 3 days.**
+**Signierte BDD-Spezifikationen werden in 3 Tagen zu produktionsreifen Prototypen.**
 
-[![BDD](https://img.shields.io/badge/Approach-BDD-brightgreen)](https://cucumber.io/docs/bdd/)
+[![BDD](https://img.shields.io/badge/Ansatz-BDD-brightgreen)](https://cucumber.io/docs/bdd/)
 [![Tech Stack](https://img.shields.io/badge/Tech-React%20|%20TypeScript%20|%20Tailwind-blue)](https://react.dev/)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+[![License](https://img.shields.io/badge/Lizenz-MIT-yellow)](LICENSE)
 
 ---
 
-## 🚀 What is This?
+## 🚀 Was ist das?
 
-This repository demonstrates my **3-Day Sprint** methodology:  
-You sign a BDD specification → I deliver a fully functional, tested application in 72 hours.
+Dieses Repository demonstriert meine **3-Tage-Sprint**-Methodik:  
+Du signierst eine BDD-Spezifikation → Ich liefere eine voll funktionsfähige, getestete Anwendung in 72 Stunden.
 
-**Core Principles:**
-- ✅ No scope creep after Day 1
-- ✅ All BDD scenarios must pass
-- ✅ Real functionality, no smoke & mirrors
-- ✅ Production-ready code ownership
-- ✅ Modern tech stack (React, TypeScript, Tailwind)
+**Grundprinzipien:**
+- ✅ Kein Scope Creep nach Tag 1
+- ✅ Alle BDD-Szenarien müssen bestehen
+- ✅ Echte Funktionalität, keine Tricks
+- ✅ Produktionsreifer Code in deinem Besitz
+- ✅ Moderner Tech Stack (React, TypeScript, Tailwind)
 
 ---
 
-## 📱 The 3 Demo Applications
+## 📱 Die 3 Demo-Anwendungen
 
-### 1. Appointment Manager (Auto-Email Notifications)
+### 1. Appointment Manager (Auto-Email-Benachrichtigungen)
 
-**Status:** ✅ Complete | [Live Demo](https://appointment-manager-zeta.vercel.app) | [Loom](https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43) | [GitHub](./appointment-manager/)
+**Status:** ✅ Fertig | [Live Demo](https://appointment-manager-zeta.vercel.app) | [Loom](https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43) | [GitHub](./appointment-manager/)
 
-**Business Value:** Automate appointment management with instant email notifications for bookings, rescheduling, and cancellations.
+**Business Value:** Automatisiere Terminverwaltung mit sofortigen E-Mail-Benachrichtigungen für Buchungen, Verschiebungen und Stornierungen.
 
 **Tech Stack:** React 18, TypeScript, Vite, Tailwind CSS, localStorage (Mock Backend)
 
@@ -56,26 +56,26 @@ Feature: Termin-Management mit Auto-Email
     And der Termin ist nicht mehr in der Liste
 ```
 
-**Key Features:**
-- ✅ Dark-mode responsive UI
-- ✅ Email-Log-Panel with timestamps
-- ✅ Search/Filter functionality
-- ✅ JSON Export
-- ✅ Toast notifications & loading states
-- ✅ localStorage persistence
+**Hauptfunktionen:**
+- ✅ Dark-Mode responsive UI
+- ✅ Email-Log-Panel mit Zeitstempeln
+- ✅ Such-/Filterfunktion
+- ✅ JSON-Export
+- ✅ Toast-Benachrichtigungen & Loading-States
+- ✅ localStorage-Persistenz
 
-**Development Metrics:**
-- 3 BDD scenarios → all passing
-- ~500 lines of code
-- Development time: ~20 hours
+**Entwicklungsmetriken:**
+- 3 BDD-Szenarien → alle bestanden
+- ~500 Zeilen Code
+- Entwicklungszeit: ~20 Stunden
 
 ---
 
-### 2. Inventory Tracker (Barcode Scanning)
+### 2. Inventory Tracker (Barcode-Scanning)
 
-**Status:** ✅ Complete | [Live Demo](https://inventory-eight-ruby.vercel.app) | [Loom](https://www.loom.com/share/cb02808e47fc4c3fadb363d064ea7f1f) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
+**Status:** ✅ Fertig | [Live Demo](https://inventory-eight-ruby.vercel.app) | [Loom](https://www.loom.com/share/cb02808e47fc4c3fadb363d064ea7f1f) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
 
-**Business Value:** Digitize inventory management for small businesses with barcode scanning and real-time stock updates.
+**Business Value:** Digitalisiere die Lagerverwaltung für kleine Unternehmen mit Barcode-Scanning und Echtzeit-Bestandsaktualisierungen.
 
 **Tech Stack:** React, TypeScript, Quagga2 (Barcode), SQLite/PostgreSQL
 
@@ -104,11 +104,11 @@ Feature: Inventory Management
 
 ---
 
-### 3. Internal FAQ Tool (Search + Admin Panel)
+### 3. Internes FAQ-Tool (Suche + Admin-Panel)
 
-**Status:** ✅ Complete | [Live Demo](https://faq-tool.vercel.app) | [Loom](https://www.loom.com/share/6f40db2d35c849f6ab2925cccf587a9d) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/faq-tool)
+**Status:** ✅ Fertig | [Live Demo](https://faq-tool.vercel.app) | [Loom](https://www.loom.com/share/6f40db2d35c849f6ab2925cccf587a9d) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/faq-tool)
 
-**Business Value:** Empower employees to find answers instantly with a searchable knowledge base and easy admin management.
+**Business Value:** Ermögliche Mitarbeitern, Antworten sofort zu finden – mit einer durchsuchbaren Wissensdatenbank und einfacher Admin-Verwaltung.
 
 **Tech Stack:** React, TypeScript, Fuse.js (Fuzzy Search), Node.js + Express
 
@@ -138,21 +138,21 @@ Feature: FAQ Management
 
 ---
 
-## ⚙️ The 3-Day Sprint Process
+## ⚙️ Der 3-Tage-Sprint-Prozess
 
-**Day 0:** BDD Spec Review & Sign-off  
-**Day 1-3:** Development with AI + Safety Layer  
-**Day 3:** Delivery + Handover + Full Code Rights
+**Tag 0:** BDD-Spec Review & Signierung  
+**Tag 1-3:** Entwicklung mit KI + Safety Layer  
+**Tag 3:** Lieferung + Übergabe + Volle Code-Rechte
 
-**Pricing:**
-- 3-Day MVP Sprint: **5,000€** (72h, full rights)
-- Follow-up Sprints: **1,500€/day** (Backend integration, Auth, Real APIs, etc.)
+**Preise:**
+- 3-Tage MVP Sprint: **5.000€** (72h, volle Rechte)
+- Follow-up Sprints: **1.500€/Tag** (Backend-Integration, Auth, Echte APIs, etc.)
 
 ---
 
-## 🛠️ Quick Start
+## 🛠️ Schnellstart
 
-Each demo app has its own README with detailed instructions:
+Jede Demo-App hat ihre eigene README mit detaillierten Anweisungen:
 
 ```bash
 # Appointment Manager
@@ -161,33 +161,33 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Öffne http://localhost:5173 in deinem Browser.
 
 ---
 
-## 📞 Contact
+## 📞 Kontakt
 
-Interested in your own 3-Day MVP Sprint?
+Interesse an deinem eigenen 3-Tage MVP Sprint?
 
-**Email:** [your-email@example.com]  
-**LinkedIn:** [Your LinkedIn Profile]  
-**Portfolio:** [Your Website]
-
----
-
-## 📄 License
-
-MIT – you can use, fork, and learn from this code.  
-**For commercial projects, full rights transfer included after payment.**
+**E-Mail:** [deine-email@beispiel.de]  
+**LinkedIn:** [Dein LinkedIn-Profil]  
+**Portfolio:** [Deine Website]
 
 ---
 
-## 🎯 Why This Approach Works
+## 📄 Lizenz
 
-**Problem:** Product managers waste 4-6 weeks on MVP briefings that drown in endless revisions.
+MIT – Du kannst diesen Code nutzen, forken und daraus lernen.  
+**Für kommerzielle Projekte: Vollständige Rechteübertragung nach Zahlung inklusive.**
 
-**Solution:** Sign a BDD spec → Get a working prototype in exactly 72 hours.
+---
 
-**How?** Cursor AI + Claude 3.5 Sonnet + 40 years of experience as a safety layer.
+## 🎯 Warum dieser Ansatz funktioniert
 
-**Result:** Zero scope discussions, all tests green, code belongs to you completely.
+**Problem:** Product Manager verschwenden 4-6 Wochen mit MVP-Briefings, die in endlosen Revisionen versinken.
+
+**Lösung:** Signiere eine BDD-Spec → Erhalte einen funktionierenden Prototyp in exakt 72 Stunden.
+
+**Wie?** Cursor AI + Claude 3.5 Sonnet + 40 Jahre Erfahrung als Safety Layer.
+
+**Ergebnis:** Null Scope-Diskussionen, alle Tests grün, Code gehört vollständig dir.
