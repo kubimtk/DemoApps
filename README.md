@@ -73,7 +73,7 @@ Feature: Termin-Management mit Auto-Email
 
 ### 2. Inventory Tracker (Barcode Scanning)
 
-**Status:** ✅ Complete | [Live Demo](https://inventory-eight-ruby.vercel.app) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
+**Status:** ✅ Complete | [Live Demo](https://inventory-eight-ruby.vercel.app) | [Loom](https://www.loom.com/share/cb02808e47fc4c3fadb363d064ea7f1f) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
 
 **Business Value:** Digitize inventory management for small businesses with barcode scanning and real-time stock updates.
 
