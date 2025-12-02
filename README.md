@@ -26,7 +26,7 @@ You sign a BDD specification → I deliver a fully functional, tested applicatio
 
 ### 1. Appointment Manager (Auto-Email Notifications)
 
-**Status:** ✅ Complete | [Live Demo](https://appointment-manager-zeta.vercel.app) | [GitHub](./appointment-manager/)
+**Status:** ✅ Complete | [Live Demo](https://appointment-manager-zeta.vercel.app) | [Loom](https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43) | [GitHub](./appointment-manager/)
 
 **Business Value:** Automate appointment management with instant email notifications for bookings, rescheduling, and cancellations.
 
@@ -106,11 +106,11 @@ Feature: Inventory Management
 
 ### 3. Internal FAQ Tool (Search + Admin Panel)
 
-**Status:** 🚧 In Planning | Live Demo: - | GitHub: -
+**Status:** ✅ Complete | [Live Demo](https://faq-tool.vercel.app) | [Loom](https://www.loom.com/share/6f40db2d35c849f6ab2925cccf587a9d) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/faq-tool)
 
 **Business Value:** Empower employees to find answers instantly with a searchable knowledge base and easy admin management.
 
-**Tech Stack (Planned):** React, TypeScript, Fuse.js (Fuzzy Search), Node.js + Express
+**Tech Stack:** React, TypeScript, Fuse.js (Fuzzy Search), Node.js + Express
 
 **BDD Specs (faq-tool.feature):**
 ```gherkin
