@@ -73,11 +73,11 @@ Feature: Termin-Management mit Auto-Email
 
 ### 2. Inventory Tracker (Barcode Scanning)
 
-**Status:** 🚧 In Planning | Live Demo: - | GitHub: -
+**Status:** ✅ Complete | [Live Demo](https://inventory-eight-ruby.vercel.app) | [GitHub](https://github.com/kubimtk/DemoApps/tree/main/inventory)
 
 **Business Value:** Digitize inventory management for small businesses with barcode scanning and real-time stock updates.
 
-**Tech Stack (Planned):** React, TypeScript, Quagga2 (Barcode), SQLite/PostgreSQL
+**Tech Stack:** React, TypeScript, Quagga2 (Barcode), SQLite/PostgreSQL
 
 **BDD Specs (inventory.feature):**
 ```gherkin
