@@ -21,7 +21,7 @@ Dieses Repository enthält Demo-Apps, die nach meinem 3-Day-Sprint-Prozess gebau
 ### 1️⃣ **Appointment Manager** | Termin-Management mit Auto-Email
 **Problem gelöst:** Manuelles Termin-Verschieben → automatisierte Kundenbenachrichtigung
 
-**Live Demo:** [appointment-manager.vercel.app](https://appointment-manager-4va4jnqv4-wolfgang-kubisiaks-projects.vercel.app)  
+**Live Demo:** [appointment-manager-zeta.vercel.app](https://appointment-manager-zeta.vercel.app)  
 **BDD-Spec:** [appointments.feature](./appointment-manager/appointments.feature)  
 **GitHub:** [appointment-manager/](./appointment-manager/)
 

@@ -14,7 +14,7 @@ BDD-Spec-gesteuerte Terminverwaltung mit modernem Dark-Mode Design.
 - ✅ Responsive Design (Mobile, Tablet, Desktop)
 
 ## Live Demo
-https://appointment-manager-[your-id].vercel.app
+https://appointment-manager-zeta.vercel.app
 
 ## BDD Specification
 [appointments.feature](./appointments.feature)
