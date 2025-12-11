@@ -19,11 +19,15 @@ https://appointment-manager-zeta.vercel.app
 ## BDD Specification
 [appointments.feature](./appointments.feature)
 
-## Demo-Modus
+## ⚠️ Hinweis: Demo-Modus
 
-** Email-Mock: ** Alle "gesendeten" Emails werden im **Email-Log-Panel** unten in der App angezeigt, statt tatsächlich versendet zu werden. Das beweist, dass die Logik komplett ist – die Integration echter Mail-Services (EmailJS/SMTP) ist ein optionaler Follow-up-Sprint (1.500€).
+Diese Demo verwendet ein **Email-Log-Panel** – es werden **keine echten E-Mails** versendet.  
+Im Produktiv-Sprint kann SMTP-Integration für **+500€** hinzugebucht werden.
 
-** Persistenz: ** Alle Termine werden im Browser (localStorage) gespeichert – ideal für schnelle Demos ohne Backend-Setup.
+**Was du siehst:** Bestätigungsmail erscheint im Log.  
+**Was du im echten Sprint bekommst:** Echte SMTP-Verbindung (Postmark/SendGrid).
+
+**Persistenz:** Alle Termine werden im Browser (localStorage) gespeichert – ideal für schnelle Demos ohne Backend-Setup.
 
 ## Tech Stack
 - React 18
