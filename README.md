@@ -1,10 +1,52 @@
-# DemoApps – Von BDD zu MVP in 72h
+# DemoApps – BDD to MVP in 72h
+
+**Transforming signed BDD specifications into production-ready prototypes in 3 days.**
+
+[![BDD](https://img.shields.io/badge/Approach-BDD-brightgreen)](https://cucumber.io/docs/bdd/)
+[![Tech Stack](https://img.shields.io/badge/Tech-React%20|%20TypeScript%20|%20Tailwind-blue)](https://react.dev/)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+
+🇬🇧 **English** | [🇩🇪 Deutsch](#-demoapps--von-bdd-zu-mvp-in-72h)
+
+---
+
+## 🚀 What is This?
+
+This repository demonstrates my **3-Day Sprint** methodology:  
+You sign a BDD specification → I deliver a fully functional, tested application in 72 hours.
+
+**Core Principles:**
+- ✅ No scope creep after Day 1
+- ✅ All BDD scenarios must pass
+- ✅ Real functionality, no smoke & mirrors
+- ✅ Production-ready code ownership
+- ✅ Modern tech stack (React, TypeScript, Tailwind)
+
+## 📱 The 3 Demo Applications
+
+| App | Status | Live Demo | Loom | GitHub |
+|-----|--------|-----------|------|--------|
+| Appointment Manager | ✅ Complete | [Demo](https://appointment-manager-zeta.vercel.app) | [Video](https://www.loom.com/share/cb02808e47fc4c3fadb363d064ea7f1f) | [Code](./appointment-manager/) |
+| Inventory Tracker | ✅ Complete | [Demo](https://inventory-eight-ruby.vercel.app) | [Video](https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43) | [Code](https://github.com/kubimtk/DemoApps/tree/main/inventory) |
+| FAQ Tool | ✅ Complete | [Demo](https://faq-tool.vercel.app) | [Video](https://www.loom.com/share/6f40db2d35c849f6ab2925cccf587a9d) | [Code](https://github.com/kubimtk/DemoApps/tree/main/faq-tool) |
+
+## ⚙️ The 3-Day Sprint Process
+
+**Day 0:** BDD Spec Review & Sign-off  
+**Day 1-3:** Development with AI + Safety Layer  
+**Day 3:** Delivery + Handover + Full Code Rights
+
+**Pricing:**
+- 3-Day MVP Sprint: **5,000€** (72h, full rights)
+- Follow-up Sprints: **1,500€/day** (Backend integration, Auth, Real APIs, etc.)
+
+---
+
+# 🇩🇪 DemoApps – Von BDD zu MVP in 72h
 
 **Signierte BDD-Spezifikationen werden in 3 Tagen zu produktionsreifen Prototypen.**
 
-[![BDD](https://img.shields.io/badge/Ansatz-BDD-brightgreen)](https://cucumber.io/docs/bdd/)
-[![Tech Stack](https://img.shields.io/badge/Tech-React%20|%20TypeScript%20|%20Tailwind-blue)](https://react.dev/)
-[![License](https://img.shields.io/badge/Lizenz-MIT-yellow)](LICENSE)
+[🇬🇧 English](#demoapps--bdd-to-mvp-in-72h) | 🇩🇪 **Deutsch**
 
 ---
 
@@ -165,23 +207,6 @@ npm run dev
 
 ---
 
-## 📞 Kontakt
-
-Interesse an deinem eigenen 3-Tage MVP Sprint?
-
-**E-Mail:** [deine-email@beispiel.de]  
-**LinkedIn:** [Dein LinkedIn-Profil]  
-**Portfolio:** [Deine Website]
-
----
-
-## 📄 Lizenz
-
-MIT – Du kannst diesen Code nutzen, forken und daraus lernen.  
-**Für kommerzielle Projekte: Vollständige Rechteübertragung nach Zahlung inklusive.**
-
----
-
 ## 🎯 Warum dieser Ansatz funktioniert
 
 **Problem:** Product Manager verschwenden 4-6 Wochen mit MVP-Briefings, die in endlosen Revisionen versinken.
@@ -191,3 +216,10 @@ MIT – Du kannst diesen Code nutzen, forken und daraus lernen.
 **Wie?** Cursor AI + Claude 3.5 Sonnet + 40 Jahre Erfahrung als Safety Layer.
 
 **Ergebnis:** Null Scope-Diskussionen, alle Tests grün, Code gehört vollständig dir.
+
+---
+
+## 📄 Lizenz
+
+MIT – Du kannst diesen Code nutzen, forken und daraus lernen.  
+**Für kommerzielle Projekte: Vollständige Rechteübertragung nach Zahlung inklusive.**

@@ -1,3 +1,34 @@
+# FAQ Tool
+
+🇬🇧 **English** | [🇩🇪 Deutsch](#-faq-tool---bdd-basierte-faq-verwaltung)
+
+BDD-driven FAQ management application with search and admin panel.
+
+## Live Demo
+https://faq-tool.vercel.app
+
+## Loom Video
+https://www.loom.com/share/6f40db2d35c849f6ab2925cccf587a9d
+
+## BDD Specs: 10/10 passing
+
+## ⚠️ Note: Authentication
+
+This demo has **no login function** – everyone sees everything.  
+OAuth login (Google/Microsoft) can be added in production sprint for **+300€**.
+
+## Tech Stack
+- Express.js + Node.js
+- SQLite database
+- EJS Templates
+- Jest + Supertest (83.8% coverage)
+
+---
+
+# 🇩🇪 FAQ-Tool - BDD-basierte FAQ-Verwaltung
+
+[🇬🇧 English](#faq-tool) | 🇩🇪 **Deutsch**
+
 ## 🏁 Sprint Status – Tag 1 SIGNED-OFF (18:00 Uhr)
 
 ### Done
