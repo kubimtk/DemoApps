@@ -30,6 +30,11 @@ Dieses Projekt implementiert alle 10 BDD-Szenarien aus `faq-tool.feature` 1:1 mi
 ✅ **Business Outcome Verifikation** - nicht nur HTTP Status  
 ✅ **Deutsche Kommentare** für bessere Wartbarkeit  
 
+## ⚠️ Hinweis: Authentifizierung
+
+Diese Demo hat **keine Login-Funktion** – alle sehen alles.  
+OAuth-Login (Google/Microsoft) kann im Produktiv-Sprint für **+300€** hinzugebucht werden.
+
 ## 🚀 Quick Start
 
 ### Installation
