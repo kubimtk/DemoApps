@@ -1,0 +1,41 @@
+{
+  "app": {
+    "title": "Lagerbestand Management",
+    "mockMode": "Mock-Modus aktiv",
+    "mockModeDescription": "Daten werden in localStorage gespeichert",
+    "resetData": "Daten zurücksetzen",
+    "resetConfirm": "Mock-Daten auf Initial-Werte zurücksetzen?",
+    "resetSuccess": "✅ Mock-Daten wurden zurückgesetzt!"
+  },
+  "scanner": {
+    "title": "Barcode scannen",
+    "inputPlaceholder": "Barcode eingeben oder scannen",
+    "scanButton": "Scannen",
+    "productNotFound": "Produkt nicht gefunden",
+    "connectionError": "Verbindungsfehler. Ist der Server gestartet?"
+  },
+  "product": {
+    "barcode": "Barcode",
+    "warehouse": "Lager",
+    "currentStock": "Aktueller Bestand",
+    "stock": "Bestand",
+    "lowStockWarning": "Mindestbestand unterschritten",
+    "removeError": "Entnahme nicht möglich – zu wenig auf Lager",
+    "negativeStockError": "Lagerbestand kann nicht negativ werden",
+    "updateError": "Fehler beim Aktualisieren des Bestands"
+  },
+  "actions": {
+    "add5": "Add 5",
+    "remove3": "Remove 3"
+  },
+  "filter": {
+    "label": "Lager filtern",
+    "all": "Alle",
+    "workshop": "Werkstatt",
+    "storage": "Lager"
+  },
+  "overview": {
+    "title": "Lagerbestand Übersicht"
+  }
+}
+

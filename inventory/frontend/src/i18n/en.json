@@ -1,0 +1,41 @@
+{
+  "app": {
+    "title": "Inventory Management",
+    "mockMode": "Mock Mode Active",
+    "mockModeDescription": "Data is stored in localStorage",
+    "resetData": "Reset Data",
+    "resetConfirm": "Reset mock data to initial values?",
+    "resetSuccess": "✅ Mock data has been reset!"
+  },
+  "scanner": {
+    "title": "Scan Barcode",
+    "inputPlaceholder": "Enter or scan barcode",
+    "scanButton": "Scan",
+    "productNotFound": "Product not found",
+    "connectionError": "Connection error. Is the server running?"
+  },
+  "product": {
+    "barcode": "Barcode",
+    "warehouse": "Warehouse",
+    "currentStock": "Current Stock",
+    "stock": "Stock",
+    "lowStockWarning": "Minimum stock not met",
+    "removeError": "Removal not possible – insufficient stock",
+    "negativeStockError": "Stock cannot become negative",
+    "updateError": "Error updating stock"
+  },
+  "actions": {
+    "add5": "Add 5",
+    "remove3": "Remove 3"
+  },
+  "filter": {
+    "label": "Filter by warehouse",
+    "all": "All",
+    "workshop": "Workshop",
+    "storage": "Storage"
+  },
+  "overview": {
+    "title": "Inventory Overview"
+  }
+}
+
