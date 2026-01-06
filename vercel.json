@@ -11,6 +11,16 @@
       "permanent": false
     },
     {
+      "source": "/appointments/:path*",
+      "destination": "https://appointment-manager-zeta.vercel.app/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/appointments",
+      "destination": "https://appointment-manager-zeta.vercel.app",
+      "permanent": false
+    },
+    {
       "source": "/appointment-manager/:path*",
       "destination": "https://appointment-manager-zeta.vercel.app/:path*",
       "permanent": false
@@ -21,6 +31,16 @@
       "permanent": false
     },
     {
+      "source": "/faq/:path*",
+      "destination": "https://faq-tool.vercel.app/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/faq",
+      "destination": "https://faq-tool.vercel.app",
+      "permanent": false
+    },
+    {
       "source": "/faq-tool/:path*",
       "destination": "https://faq-tool.vercel.app/:path*",
       "permanent": false
@@ -28,6 +48,16 @@
     {
       "source": "/faq-tool",
       "destination": "https://faq-tool.vercel.app",
+      "permanent": false
+    },
+    {
+      "source": "/voting/:path*",
+      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/voting",
+      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app",
       "permanent": false
     },
     {
