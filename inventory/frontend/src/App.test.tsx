@@ -15,8 +15,8 @@ describe('Frontend Integration Tests', () => {
       ok: true,
       json: async () => [{
         barcode: '12345',
-        name: 'Schrauben M3',
-        warehouse: 'Werkstatt',
+        name: 'Screws M3',
+        warehouse: 'Workshop',
         stock: 10,
         minStock: 20,
         isLowStock: true,
@@ -28,7 +28,7 @@ describe('Frontend Integration Tests', () => {
 
     // Wait for products to load
     await waitFor(() => {
-      expect(screen.getByText('Schrauben M3')).toBeInTheDocument();
+      expect(screen.getByText('Screws M3')).toBeInTheDocument();
     });
 
     // Scan barcode 12345
@@ -40,8 +40,8 @@ describe('Frontend Integration Tests', () => {
       ok: true,
       json: async () => ({
         barcode: '12345',
-        name: 'Schrauben M3',
-        warehouse: 'Werkstatt',
+        name: 'Screws M3',
+        warehouse: 'Workshop',
         stock: 10,
         minStock: 20,
         isLowStock: true,
@@ -75,8 +75,8 @@ describe('Frontend Integration Tests', () => {
       ok: true,
       json: async () => [{
         barcode: '12345',
-        name: 'Schrauben M3',
-        warehouse: 'Werkstatt',
+        name: 'Screws M3',
+        warehouse: 'Workshop',
         stock: 15,
         minStock: 20,
         isLowStock: true,
@@ -114,7 +114,7 @@ describe('Frontend Integration Tests', () => {
 
     // Wait for product to load in overview
     await waitFor(() => {
-      expect(screen.getByText('Schrauben M3')).toBeInTheDocument();
+      expect(screen.getByText('Screws M3')).toBeInTheDocument();
     });
 
     // Scan barcode
@@ -180,7 +180,7 @@ describe('Frontend Integration Tests', () => {
 
     // Then: Product should be marked red and show warning in overview
     await waitFor(() => {
-      expect(screen.getByText('Muttern M5')).toBeInTheDocument();
+      expect(screen.getByText('Nuts M5')).toBeInTheDocument();
       expect(screen.getByText('Minimum stock not met')).toBeInTheDocument();
       
       // Check if product card has low-stock class
@@ -193,8 +193,8 @@ describe('Frontend Integration Tests', () => {
     const products = [
       {
         barcode: '12345',
-        name: 'Schrauben M3',
-        warehouse: 'Werkstatt',
+        name: 'Screws M3',
+        warehouse: 'Workshop',
         stock: 10,
         minStock: 20,
         isLowStock: true,
@@ -202,8 +202,8 @@ describe('Frontend Integration Tests', () => {
       },
       {
         barcode: '99999',
-        name: 'Muttern M5',
-        warehouse: 'Werkstatt',
+        name: 'Nuts M5',
+        warehouse: 'Workshop',
         stock: 15,
         minStock: 20,
         isLowStock: true,
@@ -211,8 +211,8 @@ describe('Frontend Integration Tests', () => {
       },
       {
         barcode: '333',
-        name: 'Lager Product',
-        warehouse: 'Lager',
+        name: 'Storage Product',
+        warehouse: 'Storage',
         stock: 25,
         minStock: 20,
         isLowStock: false,
@@ -230,9 +230,9 @@ describe('Frontend Integration Tests', () => {
 
     // Wait for products to load
     await waitFor(() => {
-      expect(screen.getByText('Schrauben M3')).toBeInTheDocument();
-      expect(screen.getByText('Muttern M5')).toBeInTheDocument();
-      expect(screen.getByText('Lager Product')).toBeInTheDocument();
+      expect(screen.getByText('Screws M3')).toBeInTheDocument();
+      expect(screen.getByText('Nuts M5')).toBeInTheDocument();
+      expect(screen.getByText('Storage Product')).toBeInTheDocument();
     });
 
     // Mock filtered products (for Werkstatt only)
@@ -247,9 +247,9 @@ describe('Frontend Integration Tests', () => {
 
     // Then: Only Werkstatt products should be visible
     await waitFor(() => {
-      expect(screen.getByText('Schrauben M3')).toBeInTheDocument();
-      expect(screen.getByText('Muttern M5')).toBeInTheDocument();
-      expect(screen.queryByText('Lager Product')).not.toBeInTheDocument();
+      expect(screen.getByText('Screws M3')).toBeInTheDocument();
+      expect(screen.getByText('Nuts M5')).toBeInTheDocument();
+      expect(screen.queryByText('Storage Product')).not.toBeInTheDocument();
     }, { timeout: 3000 });
   });
 });

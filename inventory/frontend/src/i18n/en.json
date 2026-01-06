@@ -36,6 +36,15 @@
   },
   "overview": {
     "title": "Inventory Overview"
+  },
+  "productNames": {
+    "Schrauben M3": "Screws M3",
+    "Muttern M5": "Nuts M5"
+  },
+  "warehouseNames": {
+    "Werkstatt": "Workshop",
+    "Lager": "Storage",
+    "Alle": "All"
   }
 }
 

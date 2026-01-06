@@ -216,6 +216,20 @@ function App() {
     localStorage.setItem('inventory-language', lng);
   };
 
+  // Translate product names based on current language
+  const translateProductName = (germanName: string): string => {
+    const key = `productNames.${germanName}`;
+    const translated = t(key);
+    return translated === key ? germanName : translated;
+  };
+
+  // Translate warehouse names based on current language
+  const translateWarehouseName = (germanName: string): string => {
+    const key = `warehouseNames.${germanName}`;
+    const translated = t(key);
+    return translated === key ? germanName : translated;
+  };
+
   useEffect(() => {
     loadProducts();
   }, [warehouseFilter]);
@@ -342,9 +356,9 @@ function App() {
 
         {scannedProduct && (
           <div className={`scanned-product ${scannedProduct.isLowStock ? 'low-stock' : ''}`}>
-            <h3>{scannedProduct.name}</h3>
+            <h3>{translateProductName(scannedProduct.name)}</h3>
             <p>{t('product.barcode')}: {scannedProduct.barcode}</p>
-            <p>{t('product.warehouse')}: {scannedProduct.warehouse}</p>
+            <p>{t('product.warehouse')}: {translateWarehouseName(scannedProduct.warehouse)}</p>
             <p className="stock">{t('product.currentStock')}: {scannedProduct.stock}</p>
             {scannedProduct.warning && (
               <p className="warning">{t('product.lowStockWarning')}</p>
@@ -372,7 +386,7 @@ function App() {
         <label>
           {t('filter.label')}:
           <select value={warehouseFilter} onChange={(e) => setWarehouseFilter(e.target.value)}>
-            {warehouses.map(w => <option key={w} value={w}>{w}</option>)}
+            {warehouses.map(w => <option key={w} value={w}>{translateWarehouseName(w)}</option>)}
           </select>
         </label>
       </div>
@@ -385,9 +399,9 @@ function App() {
               key={product.barcode} 
               className={`product-card ${product.isLowStock ? 'low-stock' : ''}`}
             >
-              <h3>{product.name}</h3>
+              <h3>{translateProductName(product.name)}</h3>
               <p>{t('product.barcode')}: {product.barcode}</p>
-              <p>{t('product.warehouse')}: {product.warehouse}</p>
+              <p>{t('product.warehouse')}: {translateWarehouseName(product.warehouse)}</p>
               <p className="stock">{t('product.stock')}: {product.stock}</p>
               {product.warning && (
                 <p className="warning">{t('product.lowStockWarning')}</p>
