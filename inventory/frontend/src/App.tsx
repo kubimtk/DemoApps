@@ -1,14 +1,12 @@
 /// <reference types="vite/client" />
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './App.css';
-
-// @ts-ignore
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+import './i18n/config';
+import { API_URL } from './config';
 
 // Debug: Log API URL beim Start
 console.log('🔧 API_URL:', API_URL);
-// @ts-ignore
-console.log('🔧 ENV VITE_API_URL:', import.meta.env.VITE_API_URL);
 
 // ============================================================================
 // MOCK DATA - Basierend auf BDD Szenarien aus inventory.feature
@@ -20,28 +18,33 @@ const isMockMode = typeof window !== 'undefined' && window.location.hostname.inc
 console.log('🎭 Mock Mode:', isMockMode ? 'ACTIVE (Vercel)' : 'DISABLED (using real API)');
 
 // Initial Mock-Daten (BDD-konform)
-const INITIAL_MOCK_DATA = [
-  {
-    barcode: '12345',
-    name: 'Schrauben M3',
-    stock: 10,
-    warehouse: 'Werkstatt',
-    minStock: 20,
-    lastChanged: new Date().toISOString(),
-    isLowStock: true,
-    warning: 'Mindestbestand unterschritten'
-  },
-  {
-    barcode: '99999',
-    name: 'Muttern M5',
-    stock: 15,
-    warehouse: 'Werkstatt',
-    minStock: 20,
-    lastChanged: new Date().toISOString(),
-    isLowStock: true,
-    warning: 'Mindestbestand unterschritten'
-  }
-];
+// Note: Product names remain in German as they are product identifiers, not UI text
+function getInitialMockData() {
+  return [
+    {
+      barcode: '12345',
+      name: 'Schrauben M3',
+      stock: 10,
+      warehouse: 'Werkstatt',
+      minStock: 20,
+      lastChanged: new Date().toISOString(),
+      isLowStock: true,
+      warning: 'low_stock' // Translation key
+    },
+    {
+      barcode: '99999',
+      name: 'Muttern M5',
+      stock: 15,
+      warehouse: 'Werkstatt',
+      minStock: 20,
+      lastChanged: new Date().toISOString(),
+      isLowStock: true,
+      warning: 'low_stock' // Translation key
+    }
+  ];
+}
+
+const INITIAL_MOCK_DATA = getInitialMockData();
 
 // Mock Store mit localStorage-Persistierung
 const STORAGE_KEY = 'inventory-mock-store';
@@ -202,10 +205,16 @@ interface Product {
 }
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [scannedBarcode, setScannedBarcode] = useState('');
   const [scannedProduct, setScannedProduct] = useState<Product | null>(null);
   const [warehouseFilter, setWarehouseFilter] = useState('Alle');
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('inventory-language', lng);
+  };
 
   useEffect(() => {
     loadProducts();
@@ -241,12 +250,12 @@ function App() {
       } else {
         const errorData = await response.json();
         setScannedProduct(null);
-        alert(errorData.error || 'Produkt nicht gefunden');
+        alert(errorData.error || t('scanner.productNotFound'));
       }
     } catch (error) {
       console.error('Failed to scan barcode:', error);
       setScannedProduct(null);
-      alert('Verbindungsfehler. Ist der Server gestartet?');
+      alert(t('scanner.connectionError'));
     }
   };
 
@@ -264,22 +273,22 @@ function App() {
         loadProducts(); // Refresh overview
       } else if (response.status === 400) {
         const errorData = await response.json();
-        alert(errorData.error || 'Lagerbestand kann nicht negativ werden');
+        alert(errorData.error || t('product.negativeStockError'));
       } else {
-        alert('Fehler beim Aktualisieren des Bestands');
+        alert(t('product.updateError'));
       }
     } catch (error) {
       console.error('Failed to adjust stock:', error);
-      alert('Verbindungsfehler. Ist der Server gestartet?');
+      alert(t('scanner.connectionError'));
     }
   };
 
   const handleResetMockData = () => {
-    if (isMockMode && confirm('Mock-Daten auf Initial-Werte zurücksetzen?')) {
+    if (isMockMode && confirm(t('app.resetConfirm'))) {
       resetMockStore();
       loadProducts();
       setScannedProduct(null);
-      alert('✅ Mock-Daten wurden zurückgesetzt!');
+      alert(t('app.resetSuccess'));
     }
   };
 
@@ -287,56 +296,72 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Lagerbestand Management</h1>
+      <div className="header">
+        <h1>{t('app.title')}</h1>
+        <div className="language-switcher">
+          <button 
+            className={i18n.language === 'de' ? 'active' : ''}
+            onClick={() => changeLanguage('de')}
+          >
+            🇩🇪 DE
+          </button>
+          <button 
+            className={i18n.language === 'en' ? 'active' : ''}
+            onClick={() => changeLanguage('en')}
+          >
+            🇬🇧 EN
+          </button>
+        </div>
+      </div>
       {isMockMode && (
         <div style={{ padding: '10px', background: '#fff3cd', border: '1px solid #ffc107', borderRadius: '4px', marginBottom: '20px' }}>
           <p style={{ margin: 0, fontSize: '14px' }}>
-            🎭 <strong>Mock-Modus aktiv</strong> - Daten werden in localStorage gespeichert
+            🎭 <strong>{t('app.mockMode')}</strong> - {t('app.mockModeDescription')}
             <button 
               onClick={handleResetMockData}
               style={{ marginLeft: '10px', padding: '4px 8px', fontSize: '12px', cursor: 'pointer' }}
             >
-              🔄 Daten zurücksetzen
+              🔄 {t('app.resetData')}
             </button>
           </p>
         </div>
       )}
 
       <div className="scan-section">
-        <h2>Barcode scannen</h2>
+        <h2>{t('scanner.title')}</h2>
         <form onSubmit={scanBarcode}>
           <input
             type="text"
-            placeholder="Barcode eingeben oder scannen"
+            placeholder={t('scanner.inputPlaceholder')}
             value={scannedBarcode}
             onChange={(e) => setScannedBarcode(e.target.value)}
             className="barcode-input"
           />
-          <button type="submit">Scannen</button>
+          <button type="submit">{t('scanner.scanButton')}</button>
         </form>
 
         {scannedProduct && (
           <div className={`scanned-product ${scannedProduct.isLowStock ? 'low-stock' : ''}`}>
             <h3>{scannedProduct.name}</h3>
-            <p>Barcode: {scannedProduct.barcode}</p>
-            <p>Lager: {scannedProduct.warehouse}</p>
-            <p className="stock">Aktueller Bestand: {scannedProduct.stock}</p>
+            <p>{t('product.barcode')}: {scannedProduct.barcode}</p>
+            <p>{t('product.warehouse')}: {scannedProduct.warehouse}</p>
+            <p className="stock">{t('product.currentStock')}: {scannedProduct.stock}</p>
             {scannedProduct.warning && (
-              <p className="warning">{scannedProduct.warning}</p>
+              <p className="warning">{t('product.lowStockWarning')}</p>
             )}
             {scannedProduct.stock < 3 && (
-              <p className="error-message">⚠️ Entnahme nicht möglich – zu wenig auf Lager</p>
+              <p className="error-message">⚠️ {t('product.removeError')}</p>
             )}
             <div className="action-buttons">
               <button className="add-btn" onClick={() => adjustStock(scannedProduct.barcode, 5)}>
-                Add 5
+                {t('actions.add5')}
               </button>
               <button 
                 className="remove-btn" 
                 onClick={() => adjustStock(scannedProduct.barcode, -3)}
                 disabled={scannedProduct.stock < 3}
               >
-                Remove 3
+                {t('actions.remove3')}
               </button>
             </div>
           </div>
@@ -345,7 +370,7 @@ function App() {
 
       <div className="filter-section">
         <label>
-          Lager filtern:
+          {t('filter.label')}:
           <select value={warehouseFilter} onChange={(e) => setWarehouseFilter(e.target.value)}>
             {warehouses.map(w => <option key={w} value={w}>{w}</option>)}
           </select>
@@ -353,7 +378,7 @@ function App() {
       </div>
 
       <div className="products-section">
-        <h2>Lagerbestand Übersicht</h2>
+        <h2>{t('overview.title')}</h2>
         <div className="products-grid">
           {products.map((product) => (
             <div 
@@ -361,11 +386,11 @@ function App() {
               className={`product-card ${product.isLowStock ? 'low-stock' : ''}`}
             >
               <h3>{product.name}</h3>
-              <p>Barcode: {product.barcode}</p>
-              <p>Lager: {product.warehouse}</p>
-              <p className="stock">Bestand: {product.stock}</p>
+              <p>{t('product.barcode')}: {product.barcode}</p>
+              <p>{t('product.warehouse')}: {product.warehouse}</p>
+              <p className="stock">{t('product.stock')}: {product.stock}</p>
               {product.warning && (
-                <p className="warning">{product.warning}</p>
+                <p className="warning">{t('product.lowStockWarning')}</p>
               )}
             </div>
           ))}

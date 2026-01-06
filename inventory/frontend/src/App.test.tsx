@@ -20,7 +20,7 @@ describe('Frontend Integration Tests', () => {
         stock: 10,
         minStock: 20,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       }]
     });
 
@@ -32,7 +32,7 @@ describe('Frontend Integration Tests', () => {
     });
 
     // Scan barcode 12345
-    const barcodeInput = screen.getByPlaceholderText('Barcode eingeben oder scannen');
+    const barcodeInput = screen.getByPlaceholderText('Enter or scan barcode');
     fireEvent.change(barcodeInput, { target: { value: '12345' } });
 
     // Mock POST /api/scan
@@ -45,7 +45,7 @@ describe('Frontend Integration Tests', () => {
         stock: 10,
         minStock: 20,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       })
     });
 
@@ -66,7 +66,7 @@ describe('Frontend Integration Tests', () => {
         warehouse: 'Werkstatt',
         minStock: 20,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       })
     });
 
@@ -80,7 +80,7 @@ describe('Frontend Integration Tests', () => {
         stock: 15,
         minStock: 20,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       }]
     });
 
@@ -118,7 +118,7 @@ describe('Frontend Integration Tests', () => {
     });
 
     // Scan barcode
-    const barcodeInput = screen.getByPlaceholderText('Barcode eingeben oder scannen');
+    const barcodeInput = screen.getByPlaceholderText('Enter or scan barcode');
     fireEvent.change(barcodeInput, { target: { value: '12345' } });
 
     // Mock POST /api/scan
@@ -141,7 +141,7 @@ describe('Frontend Integration Tests', () => {
         ...product, 
         stock: 7,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       })
     });
 
@@ -181,7 +181,7 @@ describe('Frontend Integration Tests', () => {
     // Then: Product should be marked red and show warning in overview
     await waitFor(() => {
       expect(screen.getByText('Muttern M5')).toBeInTheDocument();
-      expect(screen.getByText('Mindestbestand unterschritten')).toBeInTheDocument();
+      expect(screen.getByText('Minimum stock not met')).toBeInTheDocument();
       
       // Check if product card has low-stock class
       const productCard = screen.getByText('Muttern M5').closest('.product-card');
@@ -198,7 +198,7 @@ describe('Frontend Integration Tests', () => {
         stock: 10,
         minStock: 20,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       },
       {
         barcode: '99999',
@@ -207,7 +207,7 @@ describe('Frontend Integration Tests', () => {
         stock: 15,
         minStock: 20,
         isLowStock: true,
-        warning: 'Mindestbestand unterschritten'
+        warning: 'Minimum stock not met'
       },
       {
         barcode: '333',

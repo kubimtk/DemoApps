@@ -5,9 +5,45 @@
   font-family: system-ui, -apple-system, sans-serif;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 h1 {
   color: #333;
-  text-align: center;
+  margin: 0;
+  flex: 1;
+}
+
+.language-switcher {
+  display: flex;
+  gap: 10px;
+}
+
+.language-switcher button {
+  padding: 8px 16px;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.language-switcher button:hover {
+  background: #f0f8ff;
+}
+
+.language-switcher button.active {
+  background: #007bff;
+  color: white;
 }
 
 .scan-section {

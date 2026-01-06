@@ -1,49 +1,5 @@
 # Appointment Manager
 
-🇬🇧 **English** | [🇩🇪 Deutsch](#-appointment-manager-deutsch)
-
-BDD-driven appointment management with modern dark-mode design.
-
-## Features
-
-- ✅ Create, reschedule, cancel appointments
-- ✅ Email mock with console logs
-- ✅ Search/filter functionality
-- ✅ Export function (JSON download)
-- ✅ Toast notifications
-- ✅ Loading states
-- ✅ localStorage persistence
-- ✅ Responsive design (Mobile, Tablet, Desktop)
-
-## Live Demo
-https://appointment-manager-zeta.vercel.app
-
-## ⚠️ Note: Demo Mode
-
-This demo uses an **Email-Log-Panel** – **no real emails** are sent.  
-SMTP integration can be added in production sprint for **+500€**.
-
-**What you see:** Confirmation email appears in log.  
-**What you get in real sprint:** Real SMTP connection (Postmark/SendGrid).
-
-**Persistence:** All appointments are stored in browser (localStorage) – ideal for quick demos without backend setup.
-
-## Quick Start
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open http://localhost:5173 in your browser.
-
----
-
-# 🇩🇪 Appointment Manager (Deutsch)
-
-[🇬🇧 English](#appointment-manager) | 🇩🇪 **Deutsch**
-
 BDD-Spec-gesteuerte Terminverwaltung mit modernem Dark-Mode Design.
 
 ## Features
@@ -80,7 +36,7 @@ Im Produktiv-Sprint kann SMTP-Integration für **+500€** hinzugebucht werden.
 - Tailwind CSS
 - localStorage (Mock Backend)
 
-## Schnellstart
+## Quick Start
 
 ```bash
 cd frontend
@@ -88,9 +44,9 @@ npm install
 npm run dev
 ```
 
-Öffne http://localhost:5173 in deinem Browser.
+Open http://localhost:5173 in your browser.
 
-## Projektstruktur
+## Project Structure
 
 ```
 appointment-manager/
@@ -105,14 +61,14 @@ appointment-manager/
 └── README.md
 ```
 
-## Entwicklung
+## Development
 
-Dieses Projekt wurde als Teil der 3-Tage MVP Sprint Demo Apps Sammlung erstellt.
+This project was built as part of the 3-Day MVP Sprint Demo Apps collection.
 
-**Entwicklungszeit:** ~20 Stunden  
-**BDD-Szenarien:** 3 Szenarien → alle bestanden  
-**Codezeilen:** ~450 (ohne Tests)
+**Development Time:** ~20 hours  
+**BDD Scenarios:** 3 scenarios → all passing  
+**Lines of Code:** ~450 (without tests)
 
-## Lizenz
+## License
 
-MIT – Du kannst diesen Code nutzen, forken und daraus lernen.
+MIT – you can use, fork, and learn from this code.

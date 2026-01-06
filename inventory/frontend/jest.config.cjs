@@ -12,6 +12,13 @@ module.exports = {
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  globals: {
+    'import.meta': {
+      env: {
+        VITE_API_URL: 'http://localhost:3000/api'
+      }
+    }
   }
 };
 

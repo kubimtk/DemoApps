@@ -1,39 +1,127 @@
-# Inventory Tracker
+# 📦 Inventory Management System
 
-🇬🇧 **English** | [🇩🇪 Deutsch](#-inventory-tracker-deutsch)
-
-BDD-driven inventory management with barcode scanning.
-
-## Live Demo
-https://inventory-eight-ruby.vercel.app
-
-## Loom Video
-https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43
-
-## BDD Specs: 5/5 passing
-
-## ⚠️ Note: Barcode Scanning
-
-This demo uses **manual barcode entry** (text field).  
-Real camera integration (Quagga2) is available in production sprint for **+300€**.
+A modern, bilingual inventory management system built with **BDD principles**.
 
 ---
 
-# 🇩🇪 Inventory Tracker (Deutsch)
+## ✨ Features
 
-[🇬🇧 English](#inventory-tracker) | 🇩🇪 **Deutsch**
+- 🌍 **Bilingual Support** - German 🇩🇪 and English 🇬🇧
+- 📱 **Barcode Scanning** - Quick product lookup
+- ➕ **Hardcoded Actions** - Add 5 / Remove 3 buttons
+- ⚠️ **Low Stock Warnings** - Visual alerts for inventory below minimum
+- 💾 **Mock Mode** - Works on Vercel with localStorage persistence
+- 🎯 **BDD-Driven** - 5/5 scenarios passing
 
-BDD-gesteuerte Lagerverwaltung mit Barcode-Scanning.
+---
 
-## Live Demo
-https://inventory-eight-ruby.vercel.app
+## 🌍 Language Support
 
-## Loom Video
-https://www.loom.com/share/abd30dc17b8741beade3f5c6cec91f43
+Switch between German and English seamlessly:
+- 🇩🇪 **German** (Deutsch)
+- 🇬🇧 **English**
 
-## BDD Specs: 5/5 bestanden
+Language preference is saved and persists across sessions.
 
-## ⚠️ Hinweis: Barcode-Scanning
+See [I18N_IMPLEMENTATION.md](./I18N_IMPLEMENTATION.md) for details.
 
-Diese Demo verwendet **manuelle Barcode-Eingabe** (Textfeld).  
-Echte Kamera-Integration (Quagga2) ist im Produktiv-Sprint für **+300€** verfügbar.
+---
+
+## 🚀 Quick Start
+
+### **Backend**
+```bash
+cd backend
+npm install
+npm start  # Runs on http://localhost:3000
+```
+
+### **Frontend**
+```bash
+cd frontend
+npm install
+npm run dev  # Runs on http://localhost:5173
+```
+
+---
+
+## 📋 BDD Specifications
+
+All scenarios implemented and tested:
+
+1. ✅ Scan barcode and increase stock
+2. ✅ Scan barcode and decrease stock
+3. ✅ Create new product
+4. ✅ Display inventory overview
+5. ✅ Low stock warning
+
+See [inventory.feature](./inventory.feature) (German) or [english.inventory.feature](./english.inventory.feature) (English)
+
+---
+
+## 🧪 Testing
+
+```bash
+# Backend tests
+cd backend && npm test
+
+# Frontend tests
+cd frontend && npm test
+```
+
+---
+
+## 📚 Documentation
+
+- [I18N Implementation](./I18N_IMPLEMENTATION.md) - Internationalization details
+- [Mock Implementation](./TECHNICAL_SPEC_MOCK.md) - Frontend mock backend
+- [Manual Testing Guide](./MANUAL_TEST.md) - Step-by-step testing
+- [API Testing](./API_TEST.md) - Backend API endpoints
+
+---
+
+## 🎯 Test Products
+
+Initial data includes:
+
+| Barcode | Product | Stock | Min Stock | Status |
+|---------|---------|-------|-----------|--------|
+| 12345   | Schrauben M3 | 10 | 20 | ⚠️ Low |
+| 99999   | Muttern M5 | 15 | 20 | ⚠️ Low |
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- React 18 + TypeScript
+- Vite
+- i18next (internationalization)
+- React Testing Library
+
+**Backend:**
+- Node.js + Express
+- sql.js (SQLite in memory)
+- Jest + Supertest
+
+---
+
+## 📦 Deployment
+
+**Frontend:** Vercel (with mock mode)  
+**Backend:** Can be deployed to any Node.js hosting
+
+Mock mode automatically activates on Vercel domains.
+
+---
+
+## ⚠️ Note: Barcode Scanning
+
+This demo uses **manual barcode input** (text field).  
+Real camera integration (Quagga2) available for production.
+
+---
+
+## 📄 License
+
+Demo Application - Educational Purposes
