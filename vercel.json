@@ -2,75 +2,36 @@
   "redirects": [
     {
       "source": "/inventory/:path*",
-      "destination": "https://inventory-z3sgru03a-wolfgang-kubisiaks-projects.vercel.app/:path*",
-      "permanent": false
+      "destination": "https://inventory-z3sgru03a-wolfgang-kubisiaks-projects.vercel.app/:path*"
     },
     {
       "source": "/inventory",
-      "destination": "https://inventory-z3sgru03a-wolfgang-kubisiaks-projects.vercel.app",
-      "permanent": false
+      "destination": "https://inventory-z3sgru03a-wolfgang-kubisiaks-projects.vercel.app/"
     },
     {
       "source": "/appointments/:path*",
-      "destination": "https://appointment-manager-zeta.vercel.app/:path*",
-      "permanent": false
+      "destination": "https://appointment-manager-zeta.vercel.app/:path*"
     },
     {
       "source": "/appointments",
-      "destination": "https://appointment-manager-zeta.vercel.app",
-      "permanent": false
-    },
-    {
-      "source": "/appointment-manager/:path*",
-      "destination": "https://appointment-manager-zeta.vercel.app/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/appointment-manager",
-      "destination": "https://appointment-manager-zeta.vercel.app",
-      "permanent": false
+      "destination": "https://appointment-manager-zeta.vercel.app/"
     },
     {
       "source": "/faq/:path*",
-      "destination": "https://faq-tool.vercel.app/:path*",
-      "permanent": false
+      "destination": "https://faq-tool.vercel.app/:path*"
     },
     {
       "source": "/faq",
-      "destination": "https://faq-tool.vercel.app",
-      "permanent": false
-    },
-    {
-      "source": "/faq-tool/:path*",
-      "destination": "https://faq-tool.vercel.app/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/faq-tool",
-      "destination": "https://faq-tool.vercel.app",
-      "permanent": false
+      "destination": "https://faq-tool.vercel.app/"
     },
     {
       "source": "/voting/:path*",
-      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app/:path*",
-      "permanent": false
+      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app/:path*"
     },
     {
       "source": "/voting",
-      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app",
-      "permanent": false
-    },
-    {
-      "source": "/feature-voting/:path*",
-      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/feature-voting",
-      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app",
-      "permanent": false
+      "destination": "https://feature-voting-wolfgang-kubisiaks-projects.vercel.app/"
     }
   ],
   "public": true
 }
-
