@@ -1,3 +1,4 @@
+@language:en
 Feature: Manage Inventory via Barcode
 
   Scenario: Scan barcode and increase stock

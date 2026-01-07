@@ -1,3 +1,4 @@
+@language:de
 Feature: Lagerbestand verwalten via Barcode
 
   Scenario: Barcode scannen und Bestand erhöhen
@@ -37,4 +38,3 @@ Feature: Lagerbestand verwalten via Barcode
     When ich die Übersicht öffne
     Then Produkt ist rot markiert
     And ich sehe Warnung "Mindestbestand unterschritten"
-ich habe ein token erstellt.
