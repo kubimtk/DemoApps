@@ -1,3 +1,4 @@
+@language:de
 Feature: Termin-Management mit Auto-Email
 
   Scenario: Termin erstellen und Bestätigungsmail senden

@@ -1,3 +1,4 @@
+@language:de
 Feature: FAQ-Tool
 
   Als Website-Admin

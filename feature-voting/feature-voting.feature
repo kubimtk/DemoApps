@@ -1,3 +1,4 @@
+@language:de
 Feature: Feature-Voting-Tool für Product Manager
 
   Als Product Manager will ich Feature-Requests sammeln und priorisieren,
