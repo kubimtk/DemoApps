@@ -1,0 +1,22 @@
+{
+  "title": "Feature Voting",
+  "subtitle": "Collect and prioritize feature requests",
+  "form": {
+    "title": "Title",
+    "titlePlaceholder": "e.g. Dark Mode",
+    "description": "Description",
+    "descriptionPlaceholder": "Describe the feature...",
+    "submit": "Submit Feature"
+  },
+  "sort": {
+    "label": "Sort by:",
+    "mostVoted": "Most Voted",
+    "newest": "Newest first"
+  },
+  "feature": {
+    "votes": "Votes",
+    "upvote": "Upvote",
+    "delete": "Delete"
+  },
+  "empty": "No features yet"
+}

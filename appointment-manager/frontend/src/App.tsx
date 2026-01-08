@@ -1,4 +1,6 @@
 import { useState, useEffect, type FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import './i18n/config';
 
 interface Appointment {
   id: string;
@@ -15,6 +17,7 @@ interface Toast {
 }
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [dateTime, setDateTime] = useState('');
   const [email, setEmail] = useState('');
@@ -86,9 +89,10 @@ function App() {
       };
 
       setAppointments([...appointments, newAppointment]);
-      console.log('📧 Bestätigung an:', email);
-      setEmailLog(prev => [...prev, `📧 Bestätigung an: ${email} - ${new Date().toLocaleTimeString()}`]);
-      showToast('Termin erfolgreich erstellt!', 'success');
+      const confirmMsg = t('email.confirmation', { email });
+      console.log(confirmMsg);
+      setEmailLog(prev => [...prev, confirmMsg]);
+      showToast(t('toast.created'), 'success');
 
       // Reset form
       setDateTime('');
@@ -109,9 +113,10 @@ function App() {
             ? { ...a, dateTime: newDateTime, status: 'moved' as const }
             : a
         ));
-        console.log('📧 Update an:', appointment.email);
-        setEmailLog(prev => [...prev, `📧 Update an: ${appointment.email} - ${new Date().toLocaleTimeString()}`]);
-        showToast('Termin erfolgreich verschoben!', 'success');
+        const updateMsg = t('email.update', { email: appointment.email });
+        console.log(updateMsg);
+        setEmailLog(prev => [...prev, updateMsg]);
+        showToast(t('toast.moved'), 'success');
       });
     }
   };
@@ -123,15 +128,16 @@ function App() {
     if (confirm(`Möchten Sie den Termin "${appointment.title}" wirklich stornieren?`)) {
       await simulateApiCall(() => {
         setAppointments(appointments.filter(a => a.id !== id));
-        console.log('📧 Storno an:', appointment.email);
-        setEmailLog(prev => [...prev, `📧 Storno an: ${appointment.email} - ${new Date().toLocaleTimeString()}`]);
-        showToast('Termin erfolgreich storniert!', 'success');
+        const cancelMsg = t('email.cancellation', { email: appointment.email });
+        console.log(cancelMsg);
+        setEmailLog(prev => [...prev, cancelMsg]);
+        showToast(t('toast.cancelled'), 'success');
       });
     }
   };
 
   const handleCopy = async (appointment: Appointment) => {
-    const text = `Termin: ${appointment.title}\nDatum: ${new Date(appointment.dateTime).toLocaleString('de-DE')}\nE-Mail: ${appointment.email}\nStatus: ${appointment.status}`;
+    const text = `Termin: ${appointment.title}\nDatum: ${new Date(appointment.dateTime).toLocaleString(i18n.language)}\nE-Mail: ${appointment.email}\nStatus: ${appointment.status}`;
     
     try {
       await navigator.clipboard.writeText(text);
@@ -187,6 +193,10 @@ function App() {
     )
     .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
 
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'de' ? 'en' : 'de');
+  };
+
   return (
     <div className="min-h-screen bg-[#111827] text-[#F9FAFB]" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Sticky Header */}
@@ -199,19 +209,27 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h1 className="text-[32px] font-[700]">Termin-Management</h1>
+              <h1 className="text-[32px] font-[700]">{t('app.title')}</h1>
             </div>
-            {appointments.length > 0 && (
+            <div className="flex items-center space-x-4">
               <button
-                onClick={handleExport}
-                className="hidden sm:flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition-all duration-200 text-sm font-semibold"
+                onClick={toggleLanguage}
+                className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition-all duration-200 text-sm font-semibold"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                <span>Export</span>
+                {i18n.language === 'de' ? '🇬🇧 EN' : '🇩🇪 DE'}
               </button>
-            )}
+              {appointments.length > 0 && (
+                <button
+                  onClick={handleExport}
+                  className="hidden sm:flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition-all duration-200 text-sm font-semibold"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  <span>Export</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -222,11 +240,11 @@ function App() {
           {/* Left Column - Form */}
           <div className="lg:sticky lg:top-32 lg:self-start">
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
-              <h2 className="text-2xl font-bold mb-6">Neuen Termin erstellen</h2>
+              <h2 className="text-2xl font-bold mb-6">{t('app.subtitle')}</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="title" className="block text-[14px] uppercase tracking-wider text-gray-400 mb-2 font-medium">
-                    Titel
+                    {t('form.title')}
                   </label>
                   <input
                     type="text"
@@ -242,7 +260,7 @@ function App() {
 
                 <div>
                   <label htmlFor="datetime" className="block text-[14px] uppercase tracking-wider text-gray-400 mb-2 font-medium">
-                    Datum und Uhrzeit
+                    {t('form.dateTime')}
                   </label>
                   <input
                     type="datetime-local"
@@ -257,7 +275,7 @@ function App() {
 
                 <div>
                   <label htmlFor="email" className="block text-[14px] uppercase tracking-wider text-gray-400 mb-2 font-medium">
-                    E-Mail
+                    {t('form.email')}
                   </label>
                   <input
                     type="email"
@@ -300,7 +318,7 @@ function App() {
                       <span>Erstelle...</span>
                     </>
                   ) : (
-                    <span>Termin erstellen</span>
+                    <span>{t('form.submit')}</span>
                   )}
                 </button>
               </form>
@@ -343,7 +361,7 @@ function App() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-gray-300">
-                  {searchQuery ? 'Keine Termine gefunden' : 'Noch keine Termine'}
+                  {searchQuery ? 'Keine Termine gefunden' : t('list.empty')}
                 </h3>
                 <p className="text-gray-500">
                   {searchQuery 
@@ -366,7 +384,7 @@ function App() {
                               {appointment.title}
                             </h3>
                             <p className="text-[18px] font-bold text-blue-400 mb-2">
-                              📅 {new Date(appointment.dateTime).toLocaleString('de-DE', {
+                              📅 {new Date(appointment.dateTime).toLocaleString(i18n.language, {
                                 weekday: 'long',
                                 year: 'numeric',
                                 month: 'long',
@@ -398,7 +416,7 @@ function App() {
                           disabled={isLoading}
                           className="flex-1 lg:flex-none bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
-                          Verschieben
+                          {t('list.move')}
                         </button>
                         <button
                           onClick={() => handleCopy(appointment)}
@@ -412,7 +430,7 @@ function App() {
                           disabled={isLoading}
                           className="flex-1 lg:flex-none bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
-                          Stornieren
+                          {t('list.cancel')}
                         </button>
                       </div>
                     </div>

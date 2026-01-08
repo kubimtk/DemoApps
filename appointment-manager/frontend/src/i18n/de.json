@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "Termin-Management",
+    "subtitle": "mit automatischer E-Mail-Benachrichtigung"
+  },
+  "form": {
+    "dateTime": "Datum und Uhrzeit",
+    "title": "Titel",
+    "email": "E-Mail",
+    "submit": "Termin erstellen"
+  },
+  "list": {
+    "title": "Termine",
+    "empty": "Noch keine Termine",
+    "move": "Verschieben",
+    "cancel": "Stornieren"
+  },
+  "toast": {
+    "created": "Termin erfolgreich erstellt!",
+    "moved": "Termin erfolgreich verschoben!",
+    "cancelled": "Termin erfolgreich storniert!"
+  },
+  "email": {
+    "confirmation": "📧 Bestätigung an: {{email}}",
+    "update": "📧 Update an: {{email}}",
+    "cancellation": "📧 Storno an: {{email}}"
+  },
+  "moveDialog": {
+    "title": "Termin verschieben",
+    "newDateTime": "Neues Datum & Uhrzeit",
+    "save": "Speichern",
+    "cancel": "Abbrechen"
+  }
+}

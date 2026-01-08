@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import './i18n/config';
 import FeatureForm from './components/FeatureForm';
 import FeatureList from './components/FeatureList';
 
@@ -16,6 +18,7 @@ export interface FeatureRequest {
 }
 
 export default function Home() {
+  const { t, i18n } = useTranslation();
   const [features, setFeatures] = useState<FeatureRequest[]>([]);
   const [sortBy, setSortBy] = useState<SortBy>('recent');
   const [loading, setLoading] = useState(true);
@@ -45,7 +48,6 @@ export default function Home() {
 
   const handleVote = async (featureId: number) => {
     try {
-      // Simulate user data (in real app, this would come from auth)
       const userId = `user_${Math.random().toString(36).substr(2, 9)}`;
       const response = await fetch(`/api/features/${featureId}/vote`, {
         method: 'POST',
@@ -96,16 +98,28 @@ export default function Home() {
     }
   };
 
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'de' ? 'en' : 'de');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-12">
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={toggleLanguage}
+              className="px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all font-medium text-gray-700"
+            >
+              {i18n.language === 'de' ? '🇬🇧 EN' : '🇩🇪 DE'}
+            </button>
+          </div>
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            🚀 Feature Voting Tool
+            🚀 {t('title')}
           </h1>
           <p className="text-xl text-gray-600 mb-6">
-            Submit and vote for feature requests to shape our product roadmap
+            {t('subtitle')}
           </p>
           
           {/* Admin Toggle */}
@@ -143,7 +157,7 @@ export default function Home() {
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
-              Most Recent
+              {t('sort.newest')}
             </button>
             <button
               onClick={() => setSortBy('votes')}
@@ -153,7 +167,7 @@ export default function Home() {
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
-              Most Voted
+              {t('sort.mostVoted')}
             </button>
           </div>
         </div>

@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "Appointment Management",
+    "subtitle": "with automatic email notifications"
+  },
+  "form": {
+    "dateTime": "Date and Time",
+    "title": "Title",
+    "email": "Email",
+    "submit": "Create Appointment"
+  },
+  "list": {
+    "title": "Appointments",
+    "empty": "No appointments yet",
+    "move": "Move",
+    "cancel": "Cancel"
+  },
+  "toast": {
+    "created": "Appointment successfully created!",
+    "moved": "Appointment successfully moved!",
+    "cancelled": "Appointment successfully cancelled!"
+  },
+  "email": {
+    "confirmation": "📧 Confirmation to: {{email}}",
+    "update": "📧 Update to: {{email}}",
+    "cancellation": "📧 Cancellation to: {{email}}"
+  },
+  "moveDialog": {
+    "title": "Move Appointment",
+    "newDateTime": "New Date & Time",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}
