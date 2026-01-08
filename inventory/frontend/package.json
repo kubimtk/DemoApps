@@ -6,9 +6,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "jest",
-    "test:bdd": "jest --testMatch='**/*.test.ts'",
-    "test:bdd:de": "jest inventory.test.ts",
-    "test:bdd:en": "jest english.inventory.test.ts"
+    "test:bdd": "jest --testMatch='**/*.test.tsx'",
+    "test:bdd:de": "jest inventory.test.tsx",
+    "test:bdd:en": "jest english.inventory.test.tsx"
   },
   "dependencies": {
     "i18next": "^25.7.3",
