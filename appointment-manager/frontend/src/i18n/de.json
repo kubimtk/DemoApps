@@ -6,29 +6,58 @@
   "form": {
     "dateTime": "Datum und Uhrzeit",
     "title": "Titel",
+    "titlePlaceholder": "z.B. Beratungsgespräch",
     "email": "E-Mail",
-    "submit": "Termin erstellen"
+    "emailPlaceholder": "kunde@beispiel.de",
+    "emailError": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "submit": "Termin erstellen",
+    "creating": "Erstelle..."
   },
   "list": {
     "title": "Termine",
     "empty": "Noch keine Termine",
+    "emptyHint": "Erstellen Sie Ihren ersten Termin mit dem Formular",
     "move": "Verschieben",
-    "cancel": "Stornieren"
+    "cancel": "Stornieren",
+    "copy": "Kopieren",
+    "searchPlaceholder": "Termine durchsuchen...",
+    "noResults": "Keine Termine gefunden",
+    "noResultsHint": "Versuchen Sie einen anderen Suchbegriff"
   },
   "toast": {
     "created": "Termin erfolgreich erstellt!",
     "moved": "Termin erfolgreich verschoben!",
-    "cancelled": "Termin erfolgreich storniert!"
+    "cancelled": "Termin erfolgreich storniert!",
+    "exported": "Termine erfolgreich exportiert!",
+    "copied": "Termin in Zwischenablage kopiert!",
+    "copyError": "Fehler beim Kopieren in die Zwischenablage"
   },
   "email": {
     "confirmation": "📧 Bestätigung an: {{email}}",
     "update": "📧 Update an: {{email}}",
-    "cancellation": "📧 Storno an: {{email}}"
+    "cancellation": "📧 Storno an: {{email}}",
+    "logTitle": "Email-Log",
+    "clearLog": "Log löschen"
   },
   "moveDialog": {
     "title": "Termin verschieben",
     "newDateTime": "Neues Datum & Uhrzeit",
+    "prompt": "Neues Datum und Uhrzeit (YYYY-MM-DDTHH:MM):",
     "save": "Speichern",
     "cancel": "Abbrechen"
+  },
+  "status": {
+    "confirmed": "Bestätigt",
+    "moved": "Verschoben",
+    "cancelled": "Storniert"
+  },
+  "confirm": {
+    "cancel": "Möchten Sie den Termin \"{{title}}\" wirklich stornieren?"
+  },
+  "clipboard": {
+    "appointment": "Termin",
+    "date": "Datum",
+    "email": "E-Mail",
+    "status": "Status"
   }
 }

@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface FeatureFormProps {
   onFeatureCreated: () => void;
 }
 
 export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
+  const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -15,7 +17,7 @@ export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
     e.preventDefault();
 
     if (!title.trim() || !description.trim()) {
-      alert('Please fill in all fields');
+      alert(t('form.fillAllFields'));
       return;
     }
 
@@ -36,11 +38,11 @@ export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
         onFeatureCreated();
       } else {
         const error = await response.json();
-        alert(error.error || 'Failed to submit feature request');
+        alert(error.error || t('form.submitError'));
       }
     } catch (error) {
       console.error('Error submitting feature:', error);
-      alert('Failed to submit feature request');
+      alert(t('form.submitError'));
     } finally {
       setSubmitting(false);
     }
@@ -49,7 +51,7 @@ export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">
-        Submit a Feature Request
+        {t('form.heading')}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
@@ -57,14 +59,14 @@ export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
             htmlFor="title"
             className="block text-sm font-medium text-gray-700 mb-2"
           >
-            Feature Title
+            {t('form.title')}
           </label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="e.g., Dark Mode"
+            placeholder={t('form.titlePlaceholder')}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all"
             disabled={submitting}
           />
@@ -75,13 +77,13 @@ export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
             htmlFor="description"
             className="block text-sm font-medium text-gray-700 mb-2"
           >
-            Description
+            {t('form.description')}
           </label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="e.g., User wollen Nachts besser lesen"
+            placeholder={t('form.descriptionPlaceholder')}
             rows={4}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all resize-none"
             disabled={submitting}
@@ -93,12 +95,9 @@ export default function FeatureForm({ onFeatureCreated }: FeatureFormProps) {
           disabled={submitting}
           className="w-full bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {submitting ? 'Submitting...' : 'Submit Feature Request'}
+          {submitting ? t('form.submitting') : t('form.submit')}
         </button>
       </form>
     </div>
   );
 }
-
-
-

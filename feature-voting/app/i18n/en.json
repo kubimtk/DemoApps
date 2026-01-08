@@ -1,12 +1,19 @@
 {
   "title": "Feature Voting",
   "subtitle": "Collect and prioritize feature requests",
+  "adminMode": "Admin Mode",
+  "featureRequests": "Feature Requests",
+  "loading": "Loading features...",
   "form": {
-    "title": "Title",
-    "titlePlaceholder": "e.g. Dark Mode",
+    "heading": "Submit a Feature Request",
+    "title": "Feature Title",
+    "titlePlaceholder": "e.g., Dark Mode",
     "description": "Description",
-    "descriptionPlaceholder": "Describe the feature...",
-    "submit": "Submit Feature"
+    "descriptionPlaceholder": "e.g., Users want to read better at night",
+    "submit": "Submit Feature Request",
+    "submitting": "Submitting...",
+    "fillAllFields": "Please fill in all fields",
+    "submitError": "Failed to submit feature request"
   },
   "sort": {
     "label": "Sort by:",
@@ -18,5 +25,11 @@
     "upvote": "Upvote",
     "delete": "Delete"
   },
-  "empty": "No features yet"
+  "empty": {
+    "title": "No feature requests yet",
+    "hint": "Be the first to submit a feature request!"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this feature request?"
+  }
 }

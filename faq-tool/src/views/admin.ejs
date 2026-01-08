@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - FAQ-Tool</title>
+  <title><%= t.adminTitle %> - <%= t.title %></title>
   <style>
     * {
       margin: 0;
@@ -28,9 +28,43 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
     h1 {
       color: #2c3e50;
-      margin-bottom: 30px;
+    }
+    
+    /* Language Switcher */
+    .language-switcher {
+      display: flex;
+      gap: 5px;
+      background: #ecf0f1;
+      padding: 4px;
+      border-radius: 6px;
+    }
+    
+    .language-switcher a {
+      padding: 6px 12px;
+      text-decoration: none;
+      color: #7f8c8d;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    
+    .language-switcher a:hover {
+      color: #2c3e50;
+    }
+    
+    .language-switcher a.active {
+      background: #3498db;
+      color: white;
     }
     
     .header-actions {
@@ -166,37 +200,65 @@
       border-radius: 20px;
       font-size: 12px;
     }
+    
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .header-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .faq-table {
+        font-size: 12px;
+      }
+      
+      .faq-table th,
+      .faq-table td {
+        padding: 8px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🛠 Admin Dashboard</h1>
+    <div class="header-top">
+      <h1>🛠 <%= t.adminTitle %></h1>
+      <div class="language-switcher">
+        <a href="/set-language/de" class="<%= lang === 'de' ? 'active' : '' %>">DE</a>
+        <a href="/set-language/en" class="<%= lang === 'en' ? 'active' : '' %>">EN</a>
+      </div>
+    </div>
     
     <div class="header-actions">
       <div>
-        <button class="btn-success" onclick="openCreateModal()">+ Neue FAQ erstellen</button>
-        <a href="/admin/export/csv" class="btn">CSV Export</a>
+        <button class="btn-success" onclick="openCreateModal()"><%= t.createNewFaq %></button>
+        <a href="/admin/export/csv" class="btn"><%= t.csvExport %></a>
       </div>
-      <a href="/" class="btn">← Zurück zur Hauptseite</a>
+      <a href="/" class="btn"><%= t.backToMain %></a>
     </div>
     
     <table class="faq-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Titel</th>
-          <th>Kategorie</th>
-          <th>Inhalt</th>
-          <th>Tags</th>
-          <th>Hilfreich</th>
-          <th>Aktionen</th>
+          <th><%= t.tableId %></th>
+          <th><%= t.tableTitle %></th>
+          <th><%= t.tableCategory %></th>
+          <th><%= t.tableContent %></th>
+          <th><%= t.tableTags %></th>
+          <th><%= t.tableHelpful %></th>
+          <th><%= t.tableActions %></th>
         </tr>
       </thead>
       <tbody>
         <% if (faqs.length === 0) { %>
           <tr>
             <td colspan="7" style="text-align: center; padding: 40px; color: #7f8c8d;">
-              Noch keine FAQs vorhanden. Erstellen Sie die erste FAQ!
+              <%= t.noFaqsAdmin %>
             </td>
           </tr>
         <% } else { %>
@@ -211,10 +273,10 @@
               <td>
                 <div class="action-buttons">
                   <button class="btn btn-small" onclick="openEditModal(<%= faq.id %>)">
-                    ✏️ Bearbeiten
+                    ✏️ <%= t.edit %>
                   </button>
                   <button class="btn btn-danger btn-small" onclick="deleteFaq(<%= faq.id %>)">
-                    🗑 Löschen
+                    🗑 <%= t.delete %>
                   </button>
                 </div>
               </td>
@@ -228,33 +290,33 @@
   <!-- Create/Edit Modal -->
   <div id="faqModal" class="modal">
     <div class="modal-content">
-      <h2 id="modalTitle">Neue FAQ erstellen</h2>
+      <h2 id="modalTitle"><%= t.modalTitleCreate %></h2>
       <form id="faqForm">
         <input type="hidden" id="faqId">
         
         <div class="form-group">
-          <label for="titel">Titel *</label>
+          <label for="titel"><%= t.labelTitle %> <%= t.required %></label>
           <input type="text" id="titel" required>
         </div>
         
         <div class="form-group">
-          <label for="kategorie">Kategorie *</label>
+          <label for="kategorie"><%= t.labelCategory %> <%= t.required %></label>
           <input type="text" id="kategorie" required>
         </div>
         
         <div class="form-group">
-          <label for="inhalt">Inhalt *</label>
+          <label for="inhalt"><%= t.labelContent %> <%= t.required %></label>
           <textarea id="inhalt" required></textarea>
         </div>
         
         <div class="form-group">
-          <label for="tags">Tags (Komma-separiert)</label>
-          <input type="text" id="tags" placeholder="z.B. Paket, Lieferung">
+          <label for="tags"><%= t.labelTags %></label>
+          <input type="text" id="tags" placeholder="<%= t.tagsPlaceholder %>">
         </div>
         
         <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button type="submit" class="btn-success">Speichern</button>
-          <button type="button" class="btn" onclick="closeModal()">Abbrechen</button>
+          <button type="submit" class="btn-success"><%= t.save %></button>
+          <button type="button" class="btn" onclick="closeModal()"><%= t.cancel %></button>
         </div>
       </form>
     </div>
@@ -263,8 +325,17 @@
   <script>
     const allFaqs = <%- JSON.stringify(faqs) %>;
     
+    // Übersetzungen für JavaScript
+    const translations = {
+      modalTitleCreate: '<%= t.modalTitleCreate %>',
+      modalTitleEdit: '<%= t.modalTitleEdit %>',
+      confirmDelete: '<%= t.confirmDelete %>',
+      errorOccurred: '<%= t.errorOccurred %>',
+      error: '<%= t.error %>'
+    };
+    
     function openCreateModal() {
-      document.getElementById('modalTitle').textContent = 'Neue FAQ erstellen';
+      document.getElementById('modalTitle').textContent = translations.modalTitleCreate;
       document.getElementById('faqForm').reset();
       document.getElementById('faqId').value = '';
       document.getElementById('faqModal').classList.add('active');
@@ -274,7 +345,7 @@
       const faq = allFaqs.find(f => f.id === id);
       if (!faq) return;
       
-      document.getElementById('modalTitle').textContent = 'FAQ bearbeiten';
+      document.getElementById('modalTitle').textContent = translations.modalTitleEdit;
       document.getElementById('faqId').value = faq.id;
       document.getElementById('titel').value = faq.titel;
       document.getElementById('kategorie').value = faq.kategorie;
@@ -322,16 +393,16 @@
           alert(result.message);
           location.reload();
         } else {
-          alert('Fehler: ' + result.error);
+          alert(translations.error + ': ' + result.error);
         }
       } catch (err) {
         console.error('Fehler:', err);
-        alert('Ein Fehler ist aufgetreten');
+        alert(translations.errorOccurred);
       }
     });
     
     async function deleteFaq(id) {
-      if (!confirm('FAQ wirklich löschen?')) return;
+      if (!confirm(translations.confirmDelete)) return;
       
       try {
         const response = await fetch(`/admin/faq/${id}`, {
@@ -344,11 +415,11 @@
           alert(result.message);
           location.reload();
         } else {
-          alert('Fehler: ' + result.error);
+          alert(translations.error + ': ' + result.error);
         }
       } catch (err) {
         console.error('Fehler:', err);
-        alert('Ein Fehler ist aufgetreten');
+        alert(translations.errorOccurred);
       }
     }
     
@@ -361,4 +432,3 @@
   </script>
 </body>
 </html>
-

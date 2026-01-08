@@ -74,7 +74,7 @@ export default function Home() {
   };
 
   const handleDelete = async (featureId: number) => {
-    if (!confirm('Are you sure you want to delete this feature request?')) {
+    if (!confirm(t('confirm.delete'))) {
       return;
     }
 
@@ -132,7 +132,7 @@ export default function Home() {
                 className="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500"
               />
               <span className="text-sm font-medium text-gray-700">
-                Admin Mode
+                {t('adminMode')}
               </span>
             </label>
           </div>
@@ -146,7 +146,7 @@ export default function Home() {
         {/* Sort Controls */}
         <div className="mb-6 flex justify-between items-center">
           <h2 className="text-2xl font-bold text-gray-900">
-            Feature Requests
+            {t('featureRequests')}
           </h2>
           <div className="flex gap-2">
             <button
@@ -176,7 +176,7 @@ export default function Home() {
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
-            <p className="mt-4 text-gray-600">Loading features...</p>
+            <p className="mt-4 text-gray-600">{t('loading')}</p>
           </div>
         ) : (
           <FeatureList

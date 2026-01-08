@@ -6,29 +6,58 @@
   "form": {
     "dateTime": "Date and Time",
     "title": "Title",
+    "titlePlaceholder": "e.g. Consultation",
     "email": "Email",
-    "submit": "Create Appointment"
+    "emailPlaceholder": "customer@example.com",
+    "emailError": "Please enter a valid email address",
+    "submit": "Create Appointment",
+    "creating": "Creating..."
   },
   "list": {
     "title": "Appointments",
     "empty": "No appointments yet",
+    "emptyHint": "Create your first appointment using the form",
     "move": "Move",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "copy": "Copy",
+    "searchPlaceholder": "Search appointments...",
+    "noResults": "No appointments found",
+    "noResultsHint": "Try a different search term"
   },
   "toast": {
     "created": "Appointment successfully created!",
     "moved": "Appointment successfully moved!",
-    "cancelled": "Appointment successfully cancelled!"
+    "cancelled": "Appointment successfully cancelled!",
+    "exported": "Appointments exported successfully!",
+    "copied": "Appointment copied to clipboard!",
+    "copyError": "Error copying to clipboard"
   },
   "email": {
     "confirmation": "📧 Confirmation to: {{email}}",
     "update": "📧 Update to: {{email}}",
-    "cancellation": "📧 Cancellation to: {{email}}"
+    "cancellation": "📧 Cancellation to: {{email}}",
+    "logTitle": "Email Log",
+    "clearLog": "Clear log"
   },
   "moveDialog": {
     "title": "Move Appointment",
     "newDateTime": "New Date & Time",
+    "prompt": "New date and time (YYYY-MM-DDTHH:MM):",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "status": {
+    "confirmed": "Confirmed",
+    "moved": "Moved",
+    "cancelled": "Cancelled"
+  },
+  "confirm": {
+    "cancel": "Do you really want to cancel the appointment \"{{title}}\"?"
+  },
+  "clipboard": {
+    "appointment": "Appointment",
+    "date": "Date",
+    "email": "Email",
+    "status": "Status"
   }
 }

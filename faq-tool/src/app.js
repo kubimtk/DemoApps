@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
+const fs = require('fs');
 const { initDatabase, getDatabase } = require('./database');
 const { stringify } = require('csv-stringify/sync');
 
@@ -9,10 +10,42 @@ const app = express();
 
 /**
  * Middleware-Konfiguration
- * Express, Body-Parser, Session, und EJS Template Engine
+ * Express, Body-Parser, Cookie-Parser, Session, und EJS Template Engine
  */
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+/**
+ * i18n - Internationalization / Mehrsprachigkeit
+ */
+const translations = {
+  de: JSON.parse(fs.readFileSync(path.join(__dirname, 'i18n/de.json'), 'utf8')),
+  en: JSON.parse(fs.readFileSync(path.join(__dirname, 'i18n/en.json'), 'utf8'))
+};
+
+// Middleware: Sprachauswahl aus Cookie oder Query-Parameter
+app.use((req, res, next) => {
+  // Sprache aus Query-Parameter hat Priorität (für Sprachwechsel)
+  if (req.query.lang && ['de', 'en'].includes(req.query.lang)) {
+    req.lang = req.query.lang;
+  } 
+  // Sonst aus Cookie
+  else if (req.cookies && req.cookies.lang && ['de', 'en'].includes(req.cookies.lang)) {
+    req.lang = req.cookies.lang;
+  }
+  // Default: Deutsch
+  else {
+    req.lang = 'de';
+  }
+  
+  // Übersetzungen für Templates verfügbar machen
+  res.locals.t = translations[req.lang];
+  res.locals.lang = req.lang;
+  
+  next();
+});
 app.use(session({
   secret: 'faq-tool-secret-key',
   resave: false,
@@ -89,6 +122,19 @@ app.post('/login', (req, res) => {
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
+});
+
+// GET /set-language/:lang - Sprachwechsel
+app.get('/set-language/:lang', (req, res) => {
+  const { lang } = req.params;
+  const referer = req.headers.referer || '/';
+  
+  if (['de', 'en'].includes(lang)) {
+    // Cookie für 1 Jahr setzen
+    res.cookie('lang', lang, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: false });
+  }
+  
+  res.redirect(referer);
 });
 
 /**

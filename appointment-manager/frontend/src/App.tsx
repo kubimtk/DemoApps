@@ -71,7 +71,7 @@ function App() {
     setEmailError('');
 
     if (!validateEmail(email)) {
-      setEmailError('Bitte geben Sie eine gültige E-Mail-Adresse ein');
+      setEmailError(t('form.emailError'));
       return;
     }
 
@@ -105,7 +105,7 @@ function App() {
     const appointment = appointments.find(a => a.id === id);
     if (!appointment) return;
 
-    const newDateTime = prompt('Neues Datum und Uhrzeit (YYYY-MM-DDTHH:MM):', appointment.dateTime);
+    const newDateTime = prompt(t('moveDialog.prompt'), appointment.dateTime);
     if (newDateTime && newDateTime !== appointment.dateTime) {
       await simulateApiCall(() => {
         setAppointments(appointments.map(a =>
@@ -125,7 +125,7 @@ function App() {
     const appointment = appointments.find(a => a.id === id);
     if (!appointment) return;
 
-    if (confirm(`Möchten Sie den Termin "${appointment.title}" wirklich stornieren?`)) {
+    if (confirm(t('confirm.cancel', { title: appointment.title }))) {
       await simulateApiCall(() => {
         setAppointments(appointments.filter(a => a.id !== id));
         const cancelMsg = t('email.cancellation', { email: appointment.email });
@@ -137,14 +137,14 @@ function App() {
   };
 
   const handleCopy = async (appointment: Appointment) => {
-    const text = `Termin: ${appointment.title}\nDatum: ${new Date(appointment.dateTime).toLocaleString(i18n.language)}\nE-Mail: ${appointment.email}\nStatus: ${appointment.status}`;
+    const text = `${t('clipboard.appointment')}: ${appointment.title}\n${t('clipboard.date')}: ${new Date(appointment.dateTime).toLocaleString(i18n.language)}\n${t('clipboard.email')}: ${appointment.email}\n${t('clipboard.status')}: ${getStatusLabel(appointment.status)}`;
     
     try {
       await navigator.clipboard.writeText(text);
-      showToast('Termin in Zwischenablage kopiert!', 'success');
+      showToast(t('toast.copied'), 'success');
     } catch (err) {
-      console.error('Fehler beim Kopieren:', err);
-      showToast('Fehler beim Kopieren in die Zwischenablage', 'error');
+      console.error('Error copying:', err);
+      showToast(t('toast.copyError'), 'error');
     }
   };
 
@@ -157,7 +157,7 @@ function App() {
     link.download = `termine_${new Date().toISOString().split('T')[0]}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    showToast('Termine erfolgreich exportiert!', 'success');
+    showToast(t('toast.exported'), 'success');
   };
 
   const getStatusColor = (status: Appointment['status']) => {
@@ -176,11 +176,11 @@ function App() {
   const getStatusLabel = (status: Appointment['status']) => {
     switch (status) {
       case 'confirmed':
-        return 'Bestätigt';
+        return t('status.confirmed');
       case 'moved':
-        return 'Verschoben';
+        return t('status.moved');
       case 'cancelled':
-        return 'Storniert';
+        return t('status.cancelled');
       default:
         return status;
     }
@@ -254,7 +254,7 @@ function App() {
                     required
                     disabled={isLoading}
                     className="w-full px-4 py-4 bg-gray-900/50 border border-gray-700 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 placeholder-gray-500"
-                    placeholder="z.B. Beratungsgespräch"
+                    placeholder={t('form.titlePlaceholder')}
                   />
                 </div>
 
@@ -292,7 +292,7 @@ function App() {
                         ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
                         : 'border-gray-700 focus:border-blue-500 focus:ring-blue-500/20'
                     }`}
-                    placeholder="kunde@beispiel.de"
+                    placeholder={t('form.emailPlaceholder')}
                   />
                   {emailError && (
                     <p className="mt-2 text-sm text-red-500 flex items-center space-x-1">
@@ -315,7 +315,7 @@ function App() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      <span>Erstelle...</span>
+                      <span>{t('form.creating')}</span>
                     </>
                   ) : (
                     <span>{t('form.submit')}</span>
@@ -332,7 +332,7 @@ function App() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Termine durchsuchen..."
+                    placeholder={t('list.searchPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-4 py-3 pl-11 bg-gray-800/50 border border-gray-700 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 placeholder-gray-500"
@@ -361,12 +361,12 @@ function App() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-gray-300">
-                  {searchQuery ? 'Keine Termine gefunden' : t('list.empty')}
+                  {searchQuery ? t('list.noResults') : t('list.empty')}
                 </h3>
                 <p className="text-gray-500">
                   {searchQuery 
-                    ? 'Versuchen Sie einen anderen Suchbegriff' 
-                    : 'Erstellen Sie Ihren ersten Termin mit dem Formular'}
+                    ? t('list.noResultsHint') 
+                    : t('list.emptyHint')}
                 </p>
               </div>
             ) : (
@@ -423,7 +423,7 @@ function App() {
                           disabled={isLoading}
                           className="flex-1 lg:flex-none bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
-                          Kopieren
+                          {t('list.copy')}
                         </button>
                         <button
                           onClick={() => handleCancel(appointment.id)}
@@ -450,13 +450,13 @@ function App() {
                   <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span>Email-Log</span>
+                  <span>{t('email.logTitle')}</span>
                 </h3>
                 <button
                   onClick={() => setEmailLog([])}
                   className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
                 >
-                  Log löschen
+                  {t('email.clearLog')}
                 </button>
               </div>
               <div className="max-h-32 overflow-y-auto space-y-2 bg-gray-900/50 rounded-lg p-4">

@@ -1,12 +1,19 @@
 {
   "title": "Feature Voting",
   "subtitle": "Sammle und priorisiere Feature-Anfragen",
+  "adminMode": "Admin Modus",
+  "featureRequests": "Feature-Anfragen",
+  "loading": "Lade Features...",
   "form": {
+    "heading": "Feature-Anfrage einreichen",
     "title": "Titel",
     "titlePlaceholder": "z.B. Dark Mode",
     "description": "Beschreibung",
-    "descriptionPlaceholder": "Beschreibe die Funktion...",
-    "submit": "Feature einreichen"
+    "descriptionPlaceholder": "z.B. Nutzer möchten nachts besser lesen können",
+    "submit": "Feature einreichen",
+    "submitting": "Wird eingereicht...",
+    "fillAllFields": "Bitte füllen Sie alle Felder aus",
+    "submitError": "Fehler beim Einreichen der Feature-Anfrage"
   },
   "sort": {
     "label": "Sortieren:",
@@ -18,5 +25,11 @@
     "upvote": "Upvote",
     "delete": "Löschen"
   },
-  "empty": "Noch keine Features vorhanden"
+  "empty": {
+    "title": "Noch keine Feature-Anfragen",
+    "hint": "Seien Sie der Erste und reichen Sie eine Feature-Anfrage ein!"
+  },
+  "confirm": {
+    "delete": "Möchten Sie diese Feature-Anfrage wirklich löschen?"
+  }
 }
