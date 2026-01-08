@@ -4,9 +4,9 @@ Feature: Appointment Management with Auto-Email
   Scenario: Create appointment and send confirmation email
     Given I am on the page "/appointments"
     When I enter an appointment on "2025-11-20" at "14:00"
-    And I enter the email "kunde@beispiel.de"
+    And I enter the email "customer@example.com"
     And I save
-    Then a confirmation email is sent to "kunde@beispiel.de"
+    Then a confirmation email is sent to "customer@example.com"
     And I see the appointment in the list
 
   Scenario: Move appointment and send update email
